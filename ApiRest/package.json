@@ -1,0 +1,29 @@
+{
+  "name": "apirest",
+  "version": "1.0.0",
+  "description": "proceso electoral electronico",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+  },
+  "author": "kevin curay",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.3.0",
+    "pg-pool": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.7",
+    "@types/morgan": "^1.9.1",
+    "@types/node": "^14.0.27",
+    "@types/pg-pool": "^2.0.2",
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4",
+    "typescript": "^3.9.7"
+  }
+}
