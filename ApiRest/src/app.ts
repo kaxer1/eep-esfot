@@ -1,7 +1,11 @@
 import express,{Application} from "express";
-import authRoutes from './routes/auth';
 import morgan from "morgan";
 import cors from "cors";
+import path from "path";
+
+import authRoutes from './routes/auth';
+import votoRoutes from './routes/voto';
+import candidatosRoutes from './routes/candidatos';
 
 const app: Application = express();
 
@@ -16,7 +20,11 @@ app.use(express.urlencoded({ extended: false}));
 app.use(express.raw({ type: 'image/*', limit: '2Mb'}));
 
 // routes
-app.use(authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/voto', votoRoutes);
+app.use('/api/lista', candidatosRoutes);
 
+// la carpeta de usa para almacenar imagenes
+app.use('/uploads', express.static(path.resolve('uploads')))
 
 export default app;
