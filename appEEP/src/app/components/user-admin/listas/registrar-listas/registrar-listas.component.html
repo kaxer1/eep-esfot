@@ -1,0 +1,52 @@
+<div class="d-flex bd-highlight titulo">
+    <h5 class="w-100 bd-highlight align-self-center">Registrar Lista Candidatura</h5>
+    <mat-icon class="flex-shrink-1 bd-highlight align-self-center" id="cerrar" (click)="dialogRef.close()">clear</mat-icon>
+</div>
+
+<form [formGroup]="registrarListaForm">
+    <div class="container" style="text-align: center;">
+        <div class="nota">
+            <span>NOTA: Por favor llenar todos los campos obligatorios (*) del formulario para activar el botón Guardar.</span>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <mat-form-field>
+                <mat-label>Nuevo Título</mat-label>
+                <input matInput placeholder="Ej: Ingenieria en Software" [formControl]="nombre_listaCtrl" required>
+                <!-- <input matInput placeholder="Ej: Ingenieria en Software" [formControl]="nombre_listaCtrl"
+                    (keypress)="IngresarSoloLetras($event)" required> -->
+                <!-- <mat-icon id="itituloL" matSuffix matTooltipClass="tituloL-tooltip" matTooltipPosition="right"
+                    matTooltip="Modificar nombre del título profesional">
+                    help_outline</mat-icon>
+                <mat-error *ngIf="nombre.invalid">{{ObtenerMensajeErrorNombre()}}</mat-error> -->
+            </mat-form-field>
+            <!-- <mat-form-field>
+                <mat-label>Nivel</mat-label>
+                <mat-icon id="itituloL" matSuffix matTooltipClass="tituloL-tooltip" matTooltipPosition="right"
+                    matTooltip="Seleccionar el tipo de nivel que tiene el título profesional">
+                    help_outline</mat-icon>
+                <mat-select [formControl]="nivelF" [(ngModel)]="selectNivel">
+                    <mat-option *ngFor="let n of niveles" [value]="n.id"
+                        (click)="ActivarDesactivarNombre(nuevoTituloForm.value)">
+                        {{n.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="!HabilitarDescrip">
+                <mat-label>Registrar Nivel</mat-label>
+                <input matInput placeholder="Ingresar nivel" (keypress)="IngresarSoloLetras($event)"
+                    formControlName="nombreNivelForm" [ngStyle]="estilo">
+                <mat-icon id="itituloL" matSuffix matTooltipClass="color-tooltip" matTooltipPosition="right"
+                    matTooltip="Nombre del nuevo nivel de titulación">
+                    help_outline</mat-icon>
+                <mat-error *ngIf="nombreNivel.invalid">{{ObtenerMensajeErrorNivel()}}</mat-error>
+            </mat-form-field> -->
+        </div>
+    </div>
+</form>
+
+<div class="d-flex flex-wrap justify-content-center">
+    <button mat-button class="btn btn-primary" [disabled]="registrarListaForm.invalid"
+        (click)="GuardarLista(registrarListaForm.value)">Guardar</button>
+    <!-- <button mat-button class="btn btn-danger" 
+        (click)="LimpiarCampos()">Cancelar</button> -->
+</div>
