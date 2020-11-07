@@ -2,11 +2,10 @@ import { Router } from 'express';
 const router: Router = Router();
 
 import { TokenValidation } from "../libs/verifyToken";
-import { getImageCandidatos,createImageCandidato,getAudio} from '../controllers/candidatos.controller';
-import multer from '../libs/multer'
+import { getListaCandidatos, createCandidatos} from '../controllers/candidatos.controller';
 
-router.get('/img/:logo', getImageCandidatos);
-router.get('/audio', getAudio);
-router.post('/img/', [TokenValidation, multer.single('image')], createImageCandidato);
+router.get('/lista-candidatos/:id_lista', TokenValidation, getListaCandidatos);
+router.post('/registrar-candidato/', TokenValidation, createCandidatos);
+// router.put('/img-lista/:id_lista', TokenValidation, subirImageLista);
 
 export default router;

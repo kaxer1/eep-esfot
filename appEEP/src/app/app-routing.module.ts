@@ -9,6 +9,7 @@ import { PrincipalEstudianteComponent } from './components/user-estudiantes/prin
 import { PrincipalAdminComponent } from './components/user-admin/principal-admin/principal-admin.component';
 import { ProcesoElectoralComponent } from './components/user-admin/proceso-electoral/proceso-electoral.component';
 import { ListasComponent } from './components/user-admin/listas/listas.component';
+import { CandidatosComponent } from './components/user-admin/candidatos/candidatos/candidatos.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'home-admin', component: PrincipalAdminComponent, canActivate: [AuthGuard], data: { rol: 1 } },
   { path: 'proceso-electoral', component: ProcesoElectoralComponent, canActivate: [AuthGuard], data: { rol: 1 } },
   { path: 'listas/:id_proceso', component: ListasComponent, canActivate: [AuthGuard], data: { rol: 1 }},
+  { path: 'candidatos/:id_lista', component: CandidatosComponent, canActivate: [AuthGuard], data: { rol: 1 }},
   
   // paginas de Estudiante
   { path: 'home-estudiante', component: PrincipalEstudianteComponent, canActivate: [AuthGuard], data: { rol: 2 } },

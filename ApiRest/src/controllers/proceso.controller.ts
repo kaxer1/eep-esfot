@@ -29,5 +29,5 @@ export const ObtenerProcesosElectorales = async (req: Request, res: Response) =>
     
     if (datosConsulta.length === 0 ) return res.status(400).jsonp({message: 'No tienen registros de procesos'});
 
-    res.jsonp(datosConsulta);
+    res.status(200).jsonp(datosConsulta);
 }

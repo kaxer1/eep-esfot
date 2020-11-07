@@ -4,4 +4,11 @@ export interface IProcesoElectoral {
     estado: string;
     semestre: string;
     fec_eleccion: string;
-  }
+}
+
+export interface ICandidatos {
+  id: number;
+  candidato: string;
+  cargo: string;
+  id_lista?: number;
+}

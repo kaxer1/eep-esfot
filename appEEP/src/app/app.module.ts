@@ -24,6 +24,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // GUARDS
 import { AuthGuard } from './guards/auth.guard';
@@ -34,6 +35,8 @@ import { VotosService } from './services/votos/votos.service';
 import { LoginService } from './services/login/login.service';
 import { UserService } from './services/user/user.service';
 import { ProcesoService } from './services/proceso/proceso.service';
+import { ListaService } from './services/lista-canditatos/lista.service';
+import { CandidaturaService } from './services/candidatura/candidatura.service';
 
 // PIPE
 import { ProcesosPipe } from './pipes/procesos.pipe';
@@ -49,7 +52,8 @@ import { PrincipalAdminComponent } from './components/user-admin/principal-admin
 import { PrincipalEstudianteComponent } from './components/user-estudiantes/principal-estudiante/principal-estudiante.component';
 import { ProcesoElectoralComponent } from './components/user-admin/proceso-electoral/proceso-electoral.component';
 import { ListasComponent } from './components/user-admin/listas/listas.component';
-import { RegistrarListasComponent } from './components/user-admin/listas/registrar-listas/registrar-listas.component'
+import { RegistrarListasComponent } from './components/user-admin/listas/registrar-listas/registrar-listas.component';
+import { CandidatosComponent } from './components/user-admin/candidatos/candidatos/candidatos.component'
 
 @NgModule({
   declarations: [
@@ -65,6 +69,7 @@ import { RegistrarListasComponent } from './components/user-admin/listas/registr
     ListasComponent,
     ProcesosPipe,
     RegistrarListasComponent,
+    CandidatosComponent,
   ],
   imports: [
     CommonModule,
@@ -89,7 +94,8 @@ import { RegistrarListasComponent } from './components/user-admin/listas/registr
     MatNativeDateModule,
     MatTableModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthGuard,
@@ -103,7 +109,9 @@ import { RegistrarListasComponent } from './components/user-admin/listas/registr
     VotosService,
     LoginService,
     UserService,
-    ProcesoService
+    ProcesoService,
+    ListaService,
+    CandidaturaService
   ],
   bootstrap: [AppComponent]
 })

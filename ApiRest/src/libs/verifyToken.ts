@@ -10,7 +10,7 @@ interface IPayload {
 
 export const TokenValidation = (req: Request, res: Response, next: NextFunction) => {
 
-    console.log(req.header('Authorization'))
+    // console.log(req.header('Authorization'))
     const token = req.header('Authorization')?.split(' ')[1];
     
     if(!token) return res.status(401).json('Acceso denegado');
@@ -19,7 +19,7 @@ export const TokenValidation = (req: Request, res: Response, next: NextFunction)
         
         const payload = jwt.verify(token, process.env.TOKEN_SECRET || 'tokentest') as IPayload;
     
-        console.log(payload);
+        // console.log(payload);
         
         req.userId = payload._id;
         req.userRol = payload.rol;

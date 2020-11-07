@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IProcesoElectoral } from '../../../models/tablas.model'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-proceso-electoral',

@@ -5,6 +5,7 @@ import path from "path";
 
 import authRoutes from './routes/auth';
 import votoRoutes from './routes/voto';
+import listaRoutes from './routes/lista';
 import candidatosRoutes from './routes/candidatos';
 import procesoRoutes from './routes/proceso';
 
@@ -23,7 +24,8 @@ app.use(express.raw({ type: 'image/*', limit: '2Mb'}));
 // routes
 app.use('/api/auth', authRoutes);
 app.use('/api/voto', votoRoutes);
-app.use('/api/lista', candidatosRoutes);
+app.use('/api/lista', listaRoutes);
+app.use('/api/candidatos', candidatosRoutes);
 app.use('/api/proceso', procesoRoutes);
 
 // la carpeta de usa para almacenar imagenes
