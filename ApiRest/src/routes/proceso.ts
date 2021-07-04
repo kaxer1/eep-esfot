@@ -1,10 +1,11 @@
 import { Router } from 'express';
 const router: Router = Router();
 
-import { RegistrarProceso, ObtenerProcesosElectorales } from '../controllers/proceso.controller';
+import * as PROCESO from '../controllers/proceso.controller';
 import { TokenValidation } from "../libs/verifyToken";
 
-router.post('/registrar-proceso', TokenValidation, RegistrarProceso);
-router.get('/ver-registros', TokenValidation, ObtenerProcesosElectorales);
+router.post('/registrar-proceso', TokenValidation, PROCESO.RegistrarProceso);
+router.get('/ver-registros', TokenValidation, PROCESO.ObtenerProcesosElectorales);
+router.get('/proceso-actual', TokenValidation, PROCESO.infoProcesoToUsuarios);
 
 export default router;

@@ -27,14 +27,19 @@ export const getListaCandidatos = async(req: Request, res: Response) => {
 
 export const createCandidatos = async(req: Request, res: Response) => {
     let {nombre, apellido, cargo, id_lista} = req.body
+    console.log('******************************');
     console.log(nombre, apellido, cargo, id_lista);
+    console.log('******************************');
     try {
-        let estado = await pool.query('SELECT estado FROM lista_electoral WHERE id = $1',[id_lista]).then(result => { return result.rows[0]});
+        let estado = await pool.query('SELECT estado FROM lista_electoral WHERE id = $1',[id_lista]).then(result => { return result.rows[0].estado});
+        console.log('ESTADO =======> ', estado);
         if (estado === true) {
             await pool.query('INSERT INTO candidatos(nombre, apellido, cargo, id_lista) VALUES($1, $2, $3, $4)', [nombre, apellido, cargo, id_lista])
             return res.status(200).jsonp({message: 'Registro guardado exitosamente'})
-        } else {
+        } else if (estado === false) {
             return res.status(400).jsonp({message: 'Registro no guardado, la lista electoral esta desactivada'})
+        } else if (estado === undefined) {
+            return res.status(400).jsonp({message: 'Registro no guardado, la lista electoral no existe'})
         }
     } catch (error) {
         console.log(error);
