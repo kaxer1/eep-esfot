@@ -1,7 +1,7 @@
-import { Component, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ProcesoService } from 'src/app/services/proceso/proceso.service';
+import { ProcesoService } from 'src/app/services/proceso.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { IProcesoElectoral } from '../../../models/tablas.model'
 import { MatPaginator } from '@angular/material/paginator';
@@ -34,32 +34,32 @@ export class ProcesoElectoralComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
   ArrayProceso: any = [];
   filtroProcesos = '';
 
   constructor(
     private procesoService: ProcesoService,
     private toastr: ToastrService,
-  ) { 
+  ) {
     this.ProcesoElectoralForm.patchValue({
       descripcion: '',
       semestre: '',
       fec_eleccion: ''
     })
   }
-  
+
   ngAfterViewInit() {
     this.ObtenerDatosTabla()
   }
 
-  ObtenerDatosTabla(){
-    this.procesoService.GetDatosTablaProcesoElectoral().subscribe((res:IProcesoElectoral[]) => {
+  ObtenerDatosTabla() {
+    this.procesoService.GetDatosTablaProcesoElectoral().subscribe((res: IProcesoElectoral[]) => {
       this.dataSource = new MatTableDataSource(res);
       this.ArrayProceso = this.dataSource.data;
       // console.log(this.dataSource);
       console.log(this.dataSource.data);
-      
+
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, err => {
@@ -71,14 +71,14 @@ export class ProcesoElectoralComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filtroProcesos = filterValue.trim().toLowerCase();
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
   GuardarProcesoElectoral(form) {
-    
+
     let data = {
       descripcion: form.descripcion,
       semestre: form.semestre,
@@ -92,7 +92,7 @@ export class ProcesoElectoralComponent implements AfterViewInit {
     }, err => {
       this.toastr.error(err.error.message)
     })
-    
+
   }
 
   LimpiarCampos() {

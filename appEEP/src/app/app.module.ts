@@ -1,42 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-// MATERIAL
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatTreeModule } from '@angular/material/tree';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core'
-import { MatTableModule } from '@angular/material/table';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// Cambiar el local de la APP
+import localEsEC from '@angular/common/locales/es-EC'
+import { registerLocaleData } from '@angular/common'
+registerLocaleData(localEsEC)
 
 // GUARDS
 import { AuthGuard } from './guards/auth.guard';
 
 // SERVICIOS
 import { TokenInterceptorService } from './services/login/token-interceptor.service';
-import { VotosService } from './services/votos/votos.service';
+import { VotosService } from './services/votos.service';
 import { LoginService } from './services/login/login.service';
-import { UserService } from './services/user/user.service';
-import { ProcesoService } from './services/proceso/proceso.service';
-import { ListaService } from './services/lista-canditatos/lista.service';
-import { CandidaturaService } from './services/candidatura/candidatura.service';
+import { UserService } from './services/user.service';
+import { ProcesoService } from './services/proceso.service';
+import { ListaService } from './services/lista.service';
+import { CandidaturaService } from './services/candidatura.service';
 
 // PIPE
 import { ProcesosPipe } from './pipes/procesos.pipe';
@@ -53,7 +39,9 @@ import { PrincipalEstudianteComponent } from './components/user-estudiantes/prin
 import { ProcesoElectoralComponent } from './components/user-admin/proceso-electoral/proceso-electoral.component';
 import { ListasComponent } from './components/user-admin/listas/listas.component';
 import { RegistrarListasComponent } from './components/user-admin/listas/registrar-listas/registrar-listas.component';
-import { CandidatosComponent } from './components/user-admin/candidatos/candidatos/candidatos.component'
+import { CandidatosComponent } from './components/user-admin/candidatos/candidatos/candidatos.component';
+import { EstudiantesComponent } from './components/user-admin/estudiantes/estudiantes.component'
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -70,6 +58,7 @@ import { CandidatosComponent } from './components/user-admin/candidatos/candidat
     ProcesosPipe,
     RegistrarListasComponent,
     CandidatosComponent,
+    EstudiantesComponent,
   ],
   imports: [
     CommonModule,
@@ -79,23 +68,8 @@ import { CandidatosComponent } from './components/user-admin/candidatos/candidat
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSidenavModule,
-    MatTreeModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatDatepickerModule,
-    MatDatepickerModule, 
-    MatNativeDateModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule
+    MaterialModule,
+
   ],
   providers: [
     AuthGuard,
@@ -104,14 +78,15 @@ import { CandidatosComponent } from './components/user-admin/candidatos/candidat
       useClass: TokenInterceptorService,
       multi: true
     },
-    // { provide: DateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_LOCALE, useValue: 'es' },
     VotosService,
     LoginService,
     UserService,
     ProcesoService,
     ListaService,
-    CandidaturaService
+    CandidaturaService,
+    {
+      provide: LOCALE_ID, useValue: 'es-EC'
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { ListaService } from 'src/app/services/lista-canditatos/lista.service';
+import { ListaService } from 'src/app/services/lista.service';
 
 @Component({
   selector: 'app-registrar-listas',
@@ -14,7 +14,7 @@ export class RegistrarListasComponent implements OnInit {
   // variables formulario
   nombre_listaCtrl = new FormControl('', [Validators.required]);
   descripcionCtrl = new FormControl('', [Validators.required]);
-  
+
   registrarListaForm: FormGroup
 
   //imagen
@@ -56,18 +56,18 @@ export class RegistrarListasComponent implements OnInit {
       console.log(res);
       console.log(res.id);
       this.toastr.success(res.message)
-      
+
       this.listaService.SubirImagen(formData, res.id).subscribe(response => {
         this.toastr.success('Operación Exitosa', 'imagen subida.');
         this.LimpiarCampos()
         this.dialogRef.close(true);
       }, err => {
-        this.toastr.error(err)     
+        this.toastr.error(err)
         console.log(err);
       });
 
     }, err => {
-      this.toastr.error(err)     
+      this.toastr.error(err)
       console.log(err);
     })
   }
@@ -88,8 +88,8 @@ export class RegistrarListasComponent implements OnInit {
       this.registrarListaForm.get('image').setValue(file);
 
       this.logo = await this.getBase64(file).then(
-        data => { return data}
-      ) ||  '';
+        data => { return data }
+      ) || '';
 
       this.imagen_default = true
     }

@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  API_URL = 'http://localhost:3001/api/auth';
+  API_URL = environment.url;
   // 
 
   constructor(
@@ -16,7 +17,7 @@ export class LoginService {
   ) { }
 
   singin(credenciales: any) {
-    return this.http.post<any>(`${this.API_URL}/signin`, credenciales);
+    return this.http.post<any>(`${this.API_URL}/auth/signin`, credenciales);
   }
 
   getToken() {
@@ -37,14 +38,14 @@ export class LoginService {
 
   getRolMenu() {
     let rol = parseInt(localStorage.getItem('rol'));
-    if(rol === 1){ 
+    if (rol === 1) {
       return true;//Admin
     }
     return false;//Empleado
   }
 
-  logout(){
-      localStorage.clear()
-      this.router.navigate(['/']);
+  logout() {
+    localStorage.clear()
+    this.router.navigate(['/']);
   }
 }

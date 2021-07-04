@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CandidaturaService {
 
-  API_URL = 'http://localhost:3001/api/candidatos';
+  API_URL = 'http://localhost:3000/api/candidatos';
 
   constructor(
     private http: HttpClient

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ListaService {
 
-  API_URL = 'http://localhost:3001/api/lista';
+  API_URL = 'http://localhost:3000/api/lista';
 
   constructor(
     private http: HttpClient

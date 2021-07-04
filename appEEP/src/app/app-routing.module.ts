@@ -10,21 +10,24 @@ import { PrincipalAdminComponent } from './components/user-admin/principal-admin
 import { ProcesoElectoralComponent } from './components/user-admin/proceso-electoral/proceso-electoral.component';
 import { ListasComponent } from './components/user-admin/listas/listas.component';
 import { CandidatosComponent } from './components/user-admin/candidatos/candidatos/candidatos.component';
+import { EstudiantesComponent } from './components/user-admin/estudiantes/estudiantes.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { log: false } },
-  { path: 'votos-live', component: EstadisticaComponent, canActivate: [AuthGuard], data: { log: false } },
+
   // paginas de Admin
+  { path: 'votos-live', component: EstadisticaComponent, canActivate: [AuthGuard], data: { rol: 1 } },
   { path: 'home-admin', component: PrincipalAdminComponent, canActivate: [AuthGuard], data: { rol: 1 } },
   { path: 'proceso-electoral', component: ProcesoElectoralComponent, canActivate: [AuthGuard], data: { rol: 1 } },
-  { path: 'listas/:id_proceso', component: ListasComponent, canActivate: [AuthGuard], data: { rol: 1 }},
-  { path: 'candidatos/:id_lista', component: CandidatosComponent, canActivate: [AuthGuard], data: { rol: 1 }},
-  
+  { path: 'listas/:id_proceso', component: ListasComponent, canActivate: [AuthGuard], data: { rol: 1 } },
+  { path: 'candidatos/:id_lista', component: CandidatosComponent, canActivate: [AuthGuard], data: { rol: 1 } },
+  { path: 'estudiantes', component: EstudiantesComponent, canActivate: [AuthGuard], data: { rol: 1 } },
+
   // paginas de Estudiante
   { path: 'home-estudiante', component: PrincipalEstudianteComponent, canActivate: [AuthGuard], data: { rol: 2 } },
-  
+
 ];
 
 @NgModule({

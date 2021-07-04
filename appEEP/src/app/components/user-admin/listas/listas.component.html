@@ -20,24 +20,24 @@
     </div>
     <div class="row" *ngIf="HabilitarCards" style="padding-top: 10px;">
         <div class="col-md-4" style="padding-bottom: 25px;" *ngFor="let c of listaCandidatos">
-            <div class="mat-elevation-z8" style="height: 100%;">
+            <div class="mat-elevation-z8">
                 <div class="caja-todo">
                     <div class="titulo-tarjetas">
                         <h4>{{c.nom_lista}} </h4>
                     </div>
-                    <img src="{{c.logo}}" class="img-fluid" alt="logo_empresa" srcset="">
+                    <img src="{{c.logo}}" class="img-fluid" style="height: 250px;" alt="logo_empresa" srcset="">
                     <p>{{c.descripcion}}</p>
-                </div>
-                <div class="d-flex flex-wrap justify-content-around" id="caja-boton">
-                    <a mat-button type="button" class="btn btn-primary" [routerLink]="['/candidatos/', c.id]" [queryParams]="{ nom_lista: c.nom_lista, estado: c.estado, descripcion: c.descripcion}" (click)="GuardarImagenLocal(c.logo)">
-                        <mat-icon class="icono-style color" matSuffix
-                            matTooltip="Visualiza la información de ese proceso electoral">
-                            add_circle_outline
-                        </mat-icon> Candidatos
-                    </a>
-                    <button mat-button type="submit" class="btn btn-danger">
-                        <mat-icon>delete</mat-icon> Eliminar
-                    </button>
+                    <div class="d-flex flex-wrap justify-content-around" id="caja-boton">
+                        <a mat-button type="button" class="btn btn-primary" [routerLink]="['/candidatos/', c.id]" [queryParams]="{ nom_lista: c.nom_lista, estado: c.estado, descripcion: c.descripcion}" (click)="GuardarImagenLocal(c.logo)">
+                            <mat-icon class="icono-style color" matSuffix
+                                matTooltip="Visualiza la información de ese proceso electoral">
+                                add_circle_outline
+                            </mat-icon> Candidatos
+                        </a>
+                        <button mat-button type="submit" class="btn btn-danger">
+                            <mat-icon>delete</mat-icon> Eliminar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

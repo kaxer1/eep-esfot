@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CandidaturaService } from 'src/app/services/candidatura/candidatura.service';
+import { CandidaturaService } from 'src/app/services/candidatura.service';
 import { ICandidatos } from 'src/app/models/tablas.model'
 @Component({
   selector: 'app-candidatos',
@@ -86,14 +86,14 @@ export class CandidatosComponent implements OnInit {
       // console.log(res);
       if (!res.message) {
         this.dataSource = new MatTableDataSource(res as ICandidatos[]);
-        this.candidatos = this.dataSource.data      
+        this.candidatos = this.dataSource.data
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log(this.candidatos);
         this.habilitarprogress = false;
       }
     }, err => {
-      this.toastr.error(err)     
+      this.toastr.error(err)
       console.log(err);
     })
   }
@@ -112,11 +112,11 @@ export class CandidatosComponent implements OnInit {
       this.ObtenerListaCandidatos(this.id_lista);
       this.LimpiarCampos();
     }, err => {
-      this.toastr.error(err.error.message)   
+      this.toastr.error(err.error.message)
       if (err.error.message) {
         this.habilitarprogress = false;
         this.HabilitarRegistro = false;
-      }  
+      }
       console.log(err);
     })
   }

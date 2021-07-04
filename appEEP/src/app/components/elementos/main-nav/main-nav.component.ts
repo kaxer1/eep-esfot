@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay, startWith } from 'rxjs/operators';
 import { MenuNode, } from '../../../models/menu.model';
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
+import { NestedTreeControl } from '@angular/cdk/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
@@ -39,8 +39,8 @@ export class MainNavComponent implements OnInit {
   ngOnInit() {
 
     this.breakpointObserver.observe('(max-width: 663px)').subscribe(result => {
-        this.barraInicial = result.matches;
-        this.barraUno = result.matches;
+      this.barraInicial = result.matches;
+      this.barraUno = result.matches;
     });
     this.SeleccionMenu();
   }
@@ -52,7 +52,7 @@ export class MainNavComponent implements OnInit {
       this.isShowing = true;
     }
   }
-  
+
   mouseleave() {
     if (!this.isExpanded) {
       this.isShowing = false;
@@ -83,20 +83,17 @@ export class MainNavComponent implements OnInit {
         name: 'Administración',
         icono: 'dashboard',
         children: [
-          {name: 'Home', url: '/home-admin'},
-          {name: 'Proceso Electoral', url: '/proceso-electoral'},
-          // {name: 'Registrar Candidatos', url: '/home-admin'},
-          // {name: 'Crear Régimen Laboral', url: '/home-admin'},
-          // {name: 'Crear Título Profesional', url: '/home-admin'},
-          // {name: 'Crear Nivel de Educación', url: '/home-admin'},
+          { name: 'Home', url: '/home-admin' },
+          { name: 'Proceso Electoral', url: '/proceso-electoral' },
+          { name: 'Ver votos', url: '/votos-live' },
         ]
       },
       {
         name: 'Padrón Electoral',
         icono: 'account_circle',
         children: [
-          {name: 'Estudiantes', url: '/home-estudiante'},
-          {name: 'Crear Empleado', url: '/home-estudiante'},
+          { name: 'Estudiantes', url: '/estudiantes' },
+          { name: 'Crear Empleado', url: '/home-estudiante' },
         ]
       }
     ];
@@ -110,8 +107,8 @@ export class MainNavComponent implements OnInit {
         estado: true,
         icono: 'account_circle',
         children: [
-          {name: 'Datos Generales', url: '/home-estudiante'},
-          {name: 'Contrato de Trabajo', url: '/home-estudiante'},
+          { name: 'Datos Generales', url: '/home-estudiante' },
+          { name: 'Contrato de Trabajo', url: '/home-estudiante' },
         ]
       },
       {
@@ -120,8 +117,8 @@ export class MainNavComponent implements OnInit {
         estado: true,
         icono: 'mobile_friendly',
         children: [
-          {name: 'Planificación', url: '/home-estudiante'},
-          {name: 'Horarios', url: '/home-estudiante'},
+          { name: 'Planificación', url: '/home-estudiante' },
+          { name: 'Horarios', url: '/home-estudiante' },
         ]
       }
     ]

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { ListaService } from 'src/app/services/lista-canditatos/lista.service';
+import { ListaService } from 'src/app/services/lista.service';
 import { RegistrarListasComponent } from './registrar-listas/registrar-listas.component';
 
 @Component({
@@ -25,7 +25,7 @@ export class ListasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.id_proceso = parseInt(this.rutaActiva.snapshot.params.id_proceso)
 
     this.FuncionalidadInicial();
@@ -47,19 +47,19 @@ export class ListasComponent implements OnInit {
   ObtenerListaCandidatos(id_proceso: number) {
     this.listaCandidatos = [];
     this.listaService.GetLista(id_proceso).subscribe(res => {
-      
+
       if (!res.message) {
         this.listaCandidatos = res;
         this.HabilitarCards = true
         console.log('esta dentro de message');
         console.log(this.HabilitarCards);
       }
-      
+
     })
   }
 
   AbrirVentanaRegistroCandidatura() {
-    this.openView.open(RegistrarListasComponent, {width: '800px', data: {id_proceso: this.id_proceso}}).afterClosed().subscribe(update => {
+    this.openView.open(RegistrarListasComponent, { width: '800px', data: { id_proceso: this.id_proceso } }).afterClosed().subscribe(update => {
       if (update === true) {
         this.ObtenerListaCandidatos(this.id_proceso);
       }
