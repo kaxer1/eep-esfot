@@ -11,16 +11,16 @@ const storage = multer.diskStorage({
     }
 })
 
-export default multer({storage});
+export default multer({ storage });
 
 
-export const ImagenBase64LogosEmpresas = async function(path_file:string) {
-    try {
-        path_file = path.resolve('uploads') + '/' + path_file;
-        console.log(path_file);
-        let data = fs.readFileSync(path_file);
-        return 'data:image/jpeg;base64,' + data.toString('base64');
-    } catch (error) {
-        return 0
-    }
-}
+// export const ImagenBase64LogosEmpresas = async function(path_file:string) {
+//     try {
+//         path_file = path.resolve('uploads') + '/' + path_file;
+//         console.log(path_file);
+//         let data = fs.readFileSync(path_file);
+//         return 'data:image/jpeg;base64,' + data.toString('base64');
+//     } catch (error) {
+//         return 0
+//     }
+// }

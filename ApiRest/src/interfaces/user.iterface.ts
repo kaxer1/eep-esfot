@@ -1,10 +1,11 @@
-
 export interface User {
-    id: number, 
+    id: number,
     username: string,
-    nombre: string, 
-    apellido: string, 
-    cedula: string, 
-    email: string, 
-    rol: number
+    fullname: string,
+    nombre: string,
+    apellido: string,
+    cedula: string,
+    email: string,
+    rol: number,
+    iniciales: string
 }

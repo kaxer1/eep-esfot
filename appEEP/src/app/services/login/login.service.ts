@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { LoginResp, User } from '../../interfaces/user.iterface';
+import { DataCentralService } from '../../libs/data-central.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +13,18 @@ export class LoginService {
   API_URL = environment.url;
   // 
 
+  public get user(): User {
+    return this.dcentral.user
+  }
+
   constructor(
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    private dcentral: DataCentralService
   ) { }
 
   singin(credenciales: any) {
-    return this.http.post<any>(`${this.API_URL}/auth/signin`, credenciales);
+    return this.http.post<LoginResp>(`${this.API_URL}/auth/signin`, credenciales);
   }
 
   getToken() {
@@ -29,23 +36,15 @@ export class LoginService {
   }
 
   loggedRol() {
-    return !!localStorage.getItem('rol');
+    return (this.user.rol) ? true : false;
   }
 
   getRol() {
-    return parseInt(localStorage.getItem('rol'));//Empleado
-  }
-
-  getRolMenu() {
-    let rol = parseInt(localStorage.getItem('rol'));
-    if (rol === 1) {
-      return true;//Admin
-    }
-    return false;//Empleado
+    return this.user.rol;//Empleado
   }
 
   logout() {
-    localStorage.clear()
+    localStorage.clear();
     this.router.navigate(['/']);
   }
 }

@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListaService {
 
-  API_URL = 'http://localhost:3000/api/lista';
+  API_URL = environment.url + '/lista';
 
   constructor(
     private http: HttpClient

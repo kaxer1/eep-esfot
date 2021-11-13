@@ -3,31 +3,40 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
 // componentes
-import { EstadisticaComponent } from './components/estadistica/estadistica.component';
-import { LoginComponent } from './components/login/login.component';
-import { PrincipalEstudianteComponent } from './components/user-estudiantes/principal-estudiante/principal-estudiante.component';
-import { PrincipalAdminComponent } from './components/user-admin/principal-admin/principal-admin.component';
-import { ProcesoElectoralComponent } from './components/user-admin/proceso-electoral/proceso-electoral.component';
-import { ListasComponent } from './components/user-admin/listas/listas.component';
-import { CandidatosComponent } from './components/user-admin/candidatos/candidatos/candidatos.component';
-import { EstudiantesComponent } from './components/user-admin/estudiantes/estudiantes.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { RecuperarPasswordComponent } from './pages/login/recuperar-password/recuperar-password.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { log: false } },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'recuperar',
+    component: RecuperarPasswordComponent
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
+    canActivate: [AuthGuard],
+    data: { log: false }
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard],
+    data: { rol: 1 }
+  },
+  {
+    path: 'estudiante',
+    loadChildren: () => import('./pages/estudiante/estudiante.module').then(m => m.EstudianteModule),
+    canActivate: [AuthGuard],
+    data: { rol: 2 }
+  },
 
-  // paginas de Admin
-  { path: 'votos-live', component: EstadisticaComponent, canActivate: [AuthGuard], data: { rol: 1 } },
-  { path: 'home-admin', component: PrincipalAdminComponent, canActivate: [AuthGuard], data: { rol: 1 } },
-  { path: 'proceso-electoral', component: ProcesoElectoralComponent, canActivate: [AuthGuard], data: { rol: 1 } },
-  { path: 'listas/:id_proceso', component: ListasComponent, canActivate: [AuthGuard], data: { rol: 1 } },
-  { path: 'candidatos/:id_lista', component: CandidatosComponent, canActivate: [AuthGuard], data: { rol: 1 } },
-  { path: 'estudiantes', component: EstudiantesComponent, canActivate: [AuthGuard], data: { rol: 1 } },
-
-  // paginas de Estudiante
-  { path: 'home-estudiante', component: PrincipalEstudianteComponent, canActivate: [AuthGuard], data: { rol: 2 } },
-
+  //Wild Card Route for 404 request
+  {
+    path: '**', pathMatch: 'full',
+    component: ErrorPageComponent
+  },
 ];
 
 @NgModule({

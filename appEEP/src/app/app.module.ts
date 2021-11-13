@@ -24,41 +24,15 @@ import { ProcesoService } from './services/proceso.service';
 import { ListaService } from './services/lista.service';
 import { CandidaturaService } from './services/candidatura.service';
 
-// PIPE
-import { ProcesosPipe } from './pipes/procesos.pipe';
-
 // COMPONENTES
 import { AppComponent } from './app.component';
-import { NavComponent } from './components/elementos/nav/nav.component';
-import { FooterComponent } from './components/elementos/footer/footer.component';
-import { MainNavComponent } from './components/elementos/main-nav/main-nav.component';
-import { LoginComponent } from './components/login/login.component';
-import { EstadisticaComponent } from './components/estadistica/estadistica.component';
-import { PrincipalAdminComponent } from './components/user-admin/principal-admin/principal-admin.component';
-import { PrincipalEstudianteComponent } from './components/user-estudiantes/principal-estudiante/principal-estudiante.component';
-import { ProcesoElectoralComponent } from './components/user-admin/proceso-electoral/proceso-electoral.component';
-import { ListasComponent } from './components/user-admin/listas/listas.component';
-import { RegistrarListasComponent } from './components/user-admin/listas/registrar-listas/registrar-listas.component';
-import { CandidatosComponent } from './components/user-admin/candidatos/candidatos/candidatos.component';
-import { EstudiantesComponent } from './components/user-admin/estudiantes/estudiantes.component'
+
+// Modules
 import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    MainNavComponent,
-    LoginComponent,
-    EstadisticaComponent,
-    PrincipalAdminComponent,
-    PrincipalEstudianteComponent,
-    NavComponent,
-    ProcesoElectoralComponent,
-    ListasComponent,
-    ProcesosPipe,
-    RegistrarListasComponent,
-    CandidatosComponent,
-    EstudiantesComponent,
   ],
   imports: [
     CommonModule,

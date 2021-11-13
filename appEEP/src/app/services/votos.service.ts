@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 export class VotosService {
 
   API_URL = environment.url + '/voto';
-  // http://localhost:3001/api/voto/ver
 
   constructor(
     private http: HttpClient

@@ -3,27 +3,19 @@ import pool from "../database";
 import jwt from "jsonwebtoken";
 import { User } from '../interfaces/user.iterface';
 
-// registrar usuarios
-export const signup = (req: Request, res: Response) => {
-    console.log(req.body);
-
-    res.send('signup');
-};
 // login
 export const signin = async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
-    console.log(email, password);
 
     try {
         if (email === undefined || email === null || email === '') return res.status(400).jsonp({ message: "Usuario indefinido" });
         if (password === undefined || password === null || password === '') return res.status(400).jsonp({ message: "Password indefinido" });
 
-        const user = await pool.query('SELECT id, username, nombre, apellido, email, rol FROM usuario WHERE email = $1 AND password = $2 AND estado = true', [email, password])
+        let user = await pool.query('SELECT id, username, (nombre || \' \' || apellido) as fullname, nombre, apellido, email, rol FROM usuario WHERE email = $1 AND password = $2 AND estado = true', [email, password])
             .then(result => {
                 return result.rows[0]
             }) as User;
-        console.log(user);
 
         if (user) {
             let token;
@@ -34,7 +26,9 @@ export const signin = async (req: Request, res: Response) => {
                 token = jwt.sign({ _id: user.id, rol: user.rol }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: 60 * 60 * 24 });
             }
 
-            return res.jsonp({ User: user, Authorization: token });
+            user.iniciales = user.nombre.slice(0, 1) + user.apellido.slice(0, 1);
+
+            return res.jsonp({ user: user, authorization: token });
         }
         // console.log('Email o contraseña incorrecots');
 
@@ -44,11 +38,4 @@ export const signin = async (req: Request, res: Response) => {
         return res.status(400).jsonp({ message: "Error al ingresar" });
     }
 
-};
-// perfil
-export const profile = (req: Request, res: Response) => {
-    console.log(req.userId);
-    console.log(req.userRol);
-
-    res.send('profile');
 };

@@ -15,3 +15,12 @@ export interface Lista_electoral {
     estado: boolean,
     id_proceso: number
 }
+
+export const procesoValueDefault = {
+    id: undefined,
+    descripcion: undefined,
+    estado: undefined,
+    semestre: undefined,
+    fec_eleccion: undefined,
+    lista_electoral: []
+}
