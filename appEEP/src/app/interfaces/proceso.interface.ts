@@ -1,3 +1,9 @@
+export interface ProcesoResp {
+    cod: string,
+    message: string,
+    PROCESO: Proceso
+}
+
 export interface Proceso {
     id: number,
     descripcion: string,
@@ -13,7 +19,7 @@ export interface Lista_electoral {
     descripcion: string,
     logo: string,
     estado: boolean,
-    id_proceso: number
+    id_proceso: number,
 }
 
 export const procesoValueDefault = {

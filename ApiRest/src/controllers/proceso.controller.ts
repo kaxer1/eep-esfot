@@ -8,11 +8,10 @@ export const RegistrarProceso = async (req: Request, res: Response) => {
     console.log(descripcion, semestre, fec_eleccion);
 
     try {
-        await pool.query('INSERT INTO proceso_electoral(descripcion, semestre, fec_eleccion) VALUES($1, $2, $3)', [descripcion, semestre, fec_eleccion])
-        res.jsonp({ message: 'Se guardo el proceso' });
+        await pool.query('INSERT INTO proceso_electoral(descripcion, semestre, fec_eleccion) VALUES($1, $2, $3) ', [descripcion, semestre, fec_eleccion])
+        return res.status(200).jsonp({ cod: "OK", message: 'Se guardo el proceso' });
     } catch (error) {
-        console.log(error);
-        res.status(400).jsonp({ message: 'No se ha guardado el registro, revise la información ingresada.' });
+        return res.status(500).jsonp({ message: 'Fallo en la BDD' });
     }
 }
 
@@ -32,7 +31,7 @@ export const ObtenerProcesosElectorales = async (req: Request, res: Response) =>
 
     if (datosConsulta.length === 0) return res.status(400).jsonp({ message: 'No tienen registros de procesos' });
 
-    res.status(200).jsonp(datosConsulta);
+    return res.status(200).jsonp({ cod: "OK", message: "Voto Registrado", PROCESOS: datosConsulta });
 }
 
 export const infoProcesoToUsuarios = async (req: Request, res: Response) => {
@@ -52,9 +51,8 @@ export const infoProcesoToUsuarios = async (req: Request, res: Response) => {
                 return lista
             })
 
-        return res.status(200).jsonp(proceso);
+        return res.status(200).jsonp({ cod: "OK", message: "Transaccion exitosa", PROCESO: proceso });
     } catch (error) {
-        console.log(error);
         return res.status(500).jsonp({ message: 'Fallo en la BDD' });
     }
 }

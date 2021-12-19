@@ -1,5 +1,7 @@
 
 export interface LoginResp {
+    cod: string,
+    message: string
     user: User,
     authorization: string
 }

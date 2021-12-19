@@ -3,7 +3,9 @@ export interface Proceso {
     descripcion: string,
     estado: boolean,
     semestre: string,
-    fec_eleccion: Date,
+    fec_eleccion: string,
+    hora_inicio: string,
+    hora_final: string,
     lista_electoral?: Lista_electoral[]
 }
 

@@ -29,6 +29,7 @@ import { AppComponent } from './app.component';
 
 // Modules
 import { MaterialModule } from './material/material.module';
+import { HttpErrorInterceptorService } from './libs/http-error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -47,11 +48,8 @@ import { MaterialModule } from './material/material.module';
   ],
   providers: [
     AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     VotosService,
     LoginService,
     UserService,

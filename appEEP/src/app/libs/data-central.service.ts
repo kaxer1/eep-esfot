@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AES, enc } from 'crypto-js';
 import { LoginResp, User, userDefault } from '../interfaces/user.iterface';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class DataCentralService {
     return this.dataUser
   }
 
-  constructor() { }
+  constructor(
+    private toastr: ToastrService
+  ) { }
 
   /**
    * Encripta los datos de respuesta al loquearse al sistema.
@@ -46,4 +49,13 @@ export class DataCentralService {
   public limpiarDataCentral() {
     this.dataUser = userDefault
   }
+
+  public mostrarmsgerror(msg: string) {
+    this.toastr.error(msg)
+  }
+
+  public mostrarmsgexito(msg: string) {
+    this.toastr.success(msg)
+  }
+
 }

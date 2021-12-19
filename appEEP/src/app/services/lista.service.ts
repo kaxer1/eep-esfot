@@ -9,16 +9,15 @@ export class ListaService {
 
   API_URL = environment.url + '/lista';
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Obtinen todos los registros de las listas electorales de acuerdo a un determinado proceso electoral
    * @param id_proceso Id del proceso electoral
    */
   GetLista(id_proceso: number) {
-    return this.http.get<any>(`${this.API_URL}/lista/${id_proceso}`);
+    return this.http.get<any>(`${this.API_URL}/lista/${id_proceso}`)
+
   }
 
   /**
@@ -28,6 +27,7 @@ export class ListaService {
    */
   SubirImagen(formData, id_lista: number) {
     return this.http.put(`${this.API_URL}/img-lista/${id_lista}`, formData)
+
   }
 
   /**
@@ -36,5 +36,6 @@ export class ListaService {
    */
   RegistrarLista(data: any) {
     return this.http.post<any>(`${this.API_URL}/registrar-lista`, data)
+
   }
 }

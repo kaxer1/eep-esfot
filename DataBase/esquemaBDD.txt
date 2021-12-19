@@ -7,7 +7,8 @@ create table usuario(
 	password varchar(255) unique not null,
 	email varchar(200) not null,
 	estado boolean default false,
-	rol int not null
+	rol int not null,
+	sufrago boolean default false
 )
 
 create table proceso_electoral(
@@ -15,7 +16,9 @@ create table proceso_electoral(
 	descripcion varchar(255) not null,
 	estado boolean default true,
 	semestre varchar(255) not null,
-	fec_eleccion timestamp not null
+	fec_eleccion Date not null,
+	hora_inicio Time without time zone not null,
+	hora_final Time without time zone not null
 )
 
 create table lista_electoral(
