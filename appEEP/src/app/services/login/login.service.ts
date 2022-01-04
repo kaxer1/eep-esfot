@@ -11,7 +11,6 @@ import { DataCentralService } from '../../libs/data-central.service';
 export class LoginService {
 
   API_URL = environment.url;
-  // 
 
   public get user(): User {
     return this.dcentral.user
@@ -44,7 +43,23 @@ export class LoginService {
   }
 
   logout() {
-    localStorage.clear();
-    this.router.navigate(['/']);
+    this.setlogin(false);
+    this.router.navigate(["/"], {skipLocationChange: false});
+    this.dcentral.limpiarDataCentral();
   }
+
+  /**
+   * Inicio de seccion.
+   */
+  private iniciar_login: boolean = false;
+  public get login(): boolean {
+    return this.iniciar_login
+  }
+
+  
+  public setlogin(l : boolean) {
+    this.iniciar_login = l;
+  }
+  
+
 }

@@ -3,7 +3,7 @@
         <div class="col-md-5" *ngIf="HabilitarRegistro">
             <mat-card class="mat-elevation-z8">
                 <mat-card-header>
-                    <h4>Registra candidato</h4>
+                    <h4> Registra candidato</h4>
                 </mat-card-header>
                 <mat-card-content>
                     <form [formGroup]="CandidatosForm" class="d-flex flex-wrap justify-content-center">
@@ -27,12 +27,7 @@
                         </mat-form-field>
                     </form>
                 </mat-card-content>
-                <div class="d-flex flex-wrap justify-content-around" >
-                    <button mat-button class="btn btn-primary" [disabled]="CandidatosForm.invalid"
-                        (click)="GuardarCandidato(CandidatosForm.value)">Guardar</button>
-                    <button mat-button class="btn btn-danger" 
-                        (click)="LimpiarCampos()">Cancelar</button>
-                </div>
+                <form-btn [formulario]="CandidatosForm" (onGuardar)="GuardarCandidato( $event )" (onCancelar)="LimpiarCampos()"></form-btn>
             </mat-card>
         </div>
         <div class="col-lg">
@@ -41,38 +36,35 @@
             </div>
             <mat-card class="mat-elevation-z8">
                 <mat-card-content class="d-flex flex-wrap justify-content-center">
-                    <img src="{{imagen_local}}" class="img-fluid" alt="logo_empresa" srcset="">
-                    <div id="items"><b>Descripcion: </b> {{q.descripcion}} </div>
+                    <img *ngIf="imagen_local !== '' " src="{{imagen_local}}" class="img-fluid" alt="logo_empresa" srcset="">
+                    <br>
+                    <div><b>Descripcion: </b> {{q.descripcion}} </div>
                 </mat-card-content>
-                <!-- <div class="d-flex flex-wrap justify-content-around" *ngIf="Btn_Agregar">
-                    <button mat-button class="btn btn-primary" (click)="AbrirVentanaRegistroCandidatura()">
-                        <mat-icon> add_circle_outline </mat-icon> Agregar listas postulantes
-                    </button>
-                </div> -->
             </mat-card> 
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">
         <div class="col">
             <mat-card class="mat-elevation-z8">
-                <!-- <mat-form-field style="width: 90%;">
-                    <mat-label>Escribe para Filtrar</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-                </mat-form-field> -->
                 <div class="table-responsive">
                     <table class="table table-hover table-sm">
                         <thead class="thead-light">
-                            <tr style="text-align: center;">
+                            <tr>
                                 <th scope="col">Código</th>
                                 <th scope="col">Candidato</th>
                                 <th scope="col">Cargo</th>
+                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let c of candidatos">
                                 <td scope="row">{{c.id}}</td>
-                                <td>{{c.candidato}}</td>
+                                <td>{{c.candidato | titlecase}}</td>
                                 <td>{{c.cargo}}</td>
+                                <td>
+                                    <btn-editar [isButtom]="false" [registro]="c" (onEdit)="abirDialgo( $event )"></btn-editar>
+                                    <btn-eliminar [isButtom]="false" [idreg]="c.id" [nameTable]="'candidatos'" (onDelete)="ngOnInit()"></btn-eliminar>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -81,12 +73,4 @@
             </mat-card>
         </div>
     </div>
-</div>
-<div class="pantalla-progress" *ngIf="habilitarprogress">
-    <mat-progress-spinner
-        class="progress"
-        [color]="color"
-        [mode]="mode"
-        [value]="value">
-    </mat-progress-spinner>
 </div>

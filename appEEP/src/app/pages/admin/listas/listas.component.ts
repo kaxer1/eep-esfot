@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ListaService } from 'src/app/services/lista.service';
-import { RegistrarListasComponent } from './registrar-listas/registrar-listas.component';
+import { RegistrarDialogComponent } from './registrardialog/registrarDialog.component';
+import { DataCentralService } from '../../../libs/data-central.service';
 
 @Component({
   selector: 'app-listas',
@@ -20,16 +21,16 @@ export class ListasComponent implements OnInit {
   HabilitarCards: boolean = false;
   constructor(
     private rutaActiva: ActivatedRoute,
-    private openView: MatDialog,
-    private listaService: ListaService
+    private listaService: ListaService,
+    private dcentral: DataCentralService
   ) { }
 
   ngOnInit(): void {
 
-    this.id_proceso = parseInt(this.rutaActiva.snapshot.params.id_proceso)
+    this.id_proceso = parseInt(this.rutaActiva.snapshot.params.id)
 
     this.FuncionalidadInicial();
-    this.ObtenerListaCandidatos(this.id_proceso)
+    this.ObtenerLista(this.id_proceso)
   }
 
   FuncionalidadInicial() {
@@ -44,26 +45,26 @@ export class ListasComponent implements OnInit {
     console.log(this.Btn_Agregar);
   }
 
-  ObtenerListaCandidatos(id_proceso: number) {
+  ObtenerLista(id_proceso: number) {
     this.listaCandidatos = [];
     this.listaService.GetLista(id_proceso).subscribe(res => {
 
-      if (!res.message) {
-        this.listaCandidatos = res;
-        this.HabilitarCards = true
-        console.log('esta dentro de message');
-        console.log(this.HabilitarCards);
+      if (res.message === 'ERROR') {
+        return;
       }
+      this.listaCandidatos = res.LISTA;
+      this.HabilitarCards = true;
 
     })
   }
 
   AbrirVentanaRegistroCandidatura() {
-    this.openView.open(RegistrarListasComponent, { width: '800px', data: { id_proceso: this.id_proceso } }).afterClosed().subscribe(update => {
-      if (update === true) {
-        this.ObtenerListaCandidatos(this.id_proceso);
-      }
-    })
+    this.dcentral.dialog.open(RegistrarDialogComponent, { width: '800px', data: { id_proceso: this.id_proceso } })
+      .afterClosed().subscribe(update => {
+        if (update === true) {
+          this.ObtenerLista(this.id_proceso);
+        }
+      })
   }
 
   GuardarImagenLocal(imagen: string) {

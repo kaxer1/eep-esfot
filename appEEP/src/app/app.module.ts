@@ -17,23 +17,30 @@ import { AuthGuard } from './guards/auth.guard';
 
 // SERVICIOS
 import { TokenInterceptorService } from './services/login/token-interceptor.service';
+import { HttpErrorInterceptorService } from './libs/http-error-interceptor.service';
 import { VotosService } from './services/votos.service';
 import { LoginService } from './services/login/login.service';
 import { UserService } from './services/user.service';
 import { ProcesoService } from './services/proceso.service';
 import { ListaService } from './services/lista.service';
 import { CandidaturaService } from './services/candidatura.service';
+import { LoginModule } from './pages/login/login.module';
 
 // COMPONENTES
 import { AppComponent } from './app.component';
+import { AppMainComponent } from './app.main.component';
 
 // Modules
 import { MaterialModule } from './material/material.module';
-import { HttpErrorInterceptorService } from './libs/http-error-interceptor.service';
+import { SharedModule } from './shared/shared.module';
+import { LoadingComponent } from './components/loading/loading.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    AppMainComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -43,8 +50,9 @@ import { HttpErrorInterceptorService } from './libs/http-error-interceptor.servi
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    LoginModule,
     MaterialModule,
-
+    SharedModule
   ],
   providers: [
     AuthGuard,

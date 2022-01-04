@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<div [hidden]="login">
+    <app-login></app-login>
+</div>
+
+<app-main [hidden]="!login"></app-main>

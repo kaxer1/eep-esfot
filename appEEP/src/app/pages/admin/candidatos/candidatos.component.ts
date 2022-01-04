@@ -6,9 +6,10 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { CandidaturaService } from 'src/app/services/candidatura.service';
-import { ICandidatos } from 'src/app/models/tablas.model'
+import { DataCentralService } from '../../../libs/data-central.service';
+import { ICandidatos } from '../../../interfaces/proceso.interface';
+import { EditDialogComponent } from './editdialog/editDialog.component';
 @Component({
   selector: 'app-candidatos',
   templateUrl: './candidatos.component.html',
@@ -36,15 +37,7 @@ export class CandidatosComponent implements OnInit {
     apellido: this.apellidoCtrl,
     cargo: this.cargoCtrl
   });
-
-  /**
-   * Variables progress spinner
-   */
-  color: ThemePalette = 'primary';
-  mode: ProgressSpinnerMode = 'indeterminate';
-  value = 10;
-  habilitarprogress: boolean = false;
-
+  
   /**
    * Variables Tabla de datos
    */
@@ -56,11 +49,11 @@ export class CandidatosComponent implements OnInit {
   constructor(
     private rutaActiva: ActivatedRoute,
     private candidaturaService: CandidaturaService,
-    private toastr: ToastrService
+    private dcentral: DataCentralService
   ) { }
 
   ngOnInit(): void {
-    this.id_lista = parseInt(this.rutaActiva.snapshot.params.id_lista)
+    this.id_lista = parseInt(this.rutaActiva.snapshot.params.id)
 
     this.FuncionalidadInicial();
     this.ObtenerListaCandidatos(this.id_lista)
@@ -76,52 +69,48 @@ export class CandidatosComponent implements OnInit {
       }
 
     })
-    console.log(this.QueryParams);
-    console.log(this.HabilitarRegistro);
   }
 
   ObtenerListaCandidatos(id_lista) {
     this.candidatos = []
     this.candidaturaService.ListaCandidatos(id_lista).subscribe(res => {
-      // console.log(res);
-      if (!res.message) {
-        this.dataSource = new MatTableDataSource(res as ICandidatos[]);
-        this.candidatos = this.dataSource.data
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.candidatos);
-        this.habilitarprogress = false;
-      }
-    }, err => {
-      this.toastr.error(err)
-      console.log(err);
+      
+      if (res.cod == "ERROR") { return; }
+
+      this.dataSource = new MatTableDataSource(res.LISTA_CANDIDATOS as ICandidatos[]);
+      this.candidatos = this.dataSource.data
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 
   GuardarCandidato(form) {
-    this.habilitarprogress = true;
     let data = {
       nombre: form.nombre,
       apellido: form.apellido,
       cargo: form.cargo,
       id_lista: this.id_lista
     }
-    // console.log(data);
-    this.candidaturaService.RegistrarCandidatura(data).subscribe(res => {
-      this.toastr.success(res.message);
+    this.candidaturaService.RegistrarCandidato(data).subscribe(res => {
+      if (res.cod === "ERROR") {
+        this.HabilitarRegistro = false;
+        return;
+      }
       this.ObtenerListaCandidatos(this.id_lista);
       this.LimpiarCampos();
-    }, err => {
-      this.toastr.error(err.error.message)
-      if (err.error.message) {
-        this.habilitarprogress = false;
-        this.HabilitarRegistro = false;
-      }
-      console.log(err);
     })
   }
 
   LimpiarCampos() {
     this.CandidatosForm.reset();
+  }
+
+  abirDialgo( registro: any) {
+    this.dcentral.dialog.open(EditDialogComponent, { width: '400px', data: registro, })
+      .afterClosed().subscribe(update => {
+        if (update === true) {
+          this.ObtenerListaCandidatos(this.id_lista)
+        }
+      })
   }
 }

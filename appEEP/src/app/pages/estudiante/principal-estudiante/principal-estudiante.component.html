@@ -1,14 +1,14 @@
 <div class="container m-x-2 card" *ngIf="showVotos; else showMessageSuccess">
 
     <h2>AQUI VAS A VOTAR</h2>
-    <h4>{{ procesos.descripcion }}</h4>
-    <h5>{{ procesos.semestre }}</h5>
-    <span>{{ procesos.fec_eleccion | date: 'fullDate' }}</span>
+    <h4>{{ procesos?.descripcion }}</h4>
+    <h5>{{ procesos?.semestre }}</h5>
+    <span>{{ procesos?.fec_eleccion | date: 'fullDate' }}</span>
 
     <br>
     <div class="d-flex flex-wrap justify-content-around">
         <!-- <mat-card *ngFor="let item of procesos.lista_electoral " class="m-3 " [style.background]="'#F3F3F3'" [style.width]="'400px'"> -->
-        <mat-card *ngFor="let item of procesos.lista_electoral " class="m-2 col-sm-11 col-md-5 col-lg-4 col-11" [style.background]="'#F3F3F3'">
+        <mat-card *ngFor="let item of procesos?.lista_electoral " class="m-2 col-sm-11 col-md-5 col-lg-4 col-11" [style.background]="'#F3F3F3'">
             <mat-card-title>{{ item.nom_lista }}</mat-card-title>
             <mat-card-subtitle>{{ item.descripcion }}</mat-card-subtitle>
             <mat-card-actions>

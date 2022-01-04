@@ -17,6 +17,7 @@ import { RecuperarPasswordComponent } from './recuperar-password/recuperar-passw
     LoginRoutingModule,
     SharedModule,
     MaterialModule
-  ]
+  ],
+  exports: [LoginComponent, RecuperarPasswordComponent]
 })
 export class LoginModule { }

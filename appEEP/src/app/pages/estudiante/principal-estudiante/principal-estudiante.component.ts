@@ -29,9 +29,10 @@ export class PrincipalEstudianteComponent implements OnInit {
 
   ngOnInit() {
     this.procesoService.infoProcesoToUsuarios().subscribe(
-      procesos => { this.procesos = procesos.PROCESO },
-      err => { },
-      () => { }
+      procesos => { this.procesos = procesos.PROCESO }
+      // ,
+      // err => { },
+      // () => { }
     )
   }
 

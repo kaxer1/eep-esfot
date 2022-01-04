@@ -30,3 +30,28 @@ export const procesoValueDefault = {
     fec_eleccion: undefined,
     lista_electoral: []
 }
+
+export interface ProcesoListaResp {
+    cod: string,
+    message: string
+    procesos: IProcesoElectoral[]
+}
+
+export interface IProcesoElectoral {
+    id: number;
+    descripcion: string;
+    estado: string;
+    semestre: string;
+    fec_eleccion: string;
+    hora_inicio: string;
+    hora_final: string;
+}
+
+export interface ICandidatos {
+    id: number;
+    candidato: string;
+    nombre: string,
+    apellido: string,
+    cargo: string;
+    id_lista?: number;
+}

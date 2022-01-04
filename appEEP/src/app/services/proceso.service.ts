@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ProcesoResp } from '../interfaces/proceso.interface';
+import { ProcesoListaResp, ProcesoResp } from '../interfaces/proceso.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ProcesoService {
   }
 
   GetDatosTablaProcesoElectoral() {
-    return this.http.get<any>(`${this.API_URL}/ver-registros`)
+    return this.http.get<ProcesoListaResp>(`${this.API_URL}/ver-registros`)
 
   }
 

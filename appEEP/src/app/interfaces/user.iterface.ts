@@ -1,8 +1,10 @@
+import { Menu } from "../models/menu.model";
 
 export interface LoginResp {
     cod: string,
     message: string
     user: User,
+    menu: Menu,
     authorization: string
 }
 
@@ -27,4 +29,10 @@ export const userDefault: User = {
     email: '',
     rol: undefined,
     iniciales: ''
+}
+
+export interface permisosSistema {
+    crear: boolean,
+    editar: boolean,
+    elminar: boolean
 }

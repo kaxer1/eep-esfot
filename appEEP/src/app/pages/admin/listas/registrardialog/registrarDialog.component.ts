@@ -1,15 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
 import { ListaService } from 'src/app/services/lista.service';
 
 @Component({
-  selector: 'app-registrar-listas',
-  templateUrl: './registrar-listas.component.html',
-  styleUrls: ['./registrar-listas.component.sass']
+  selector: 'app-registrar-dialog',
+  templateUrl: './registrarDialog.component.html',
+  styleUrls: ['./registrarDialog.component.sass']
 })
-export class RegistrarListasComponent implements OnInit {
+export class RegistrarDialogComponent implements OnInit {
 
   // variables formulario
   nombre_listaCtrl = new FormControl('', [Validators.required]);
@@ -23,14 +22,12 @@ export class RegistrarListasComponent implements OnInit {
 
   constructor(
     private listaService: ListaService,
-    private toastr: ToastrService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<RegistrarListasComponent>,
+    public dialogRef: MatDialogRef<RegistrarDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.registrarListaForm = this.formBuilder.group({
       image: [''],
       nombre_lista: this.nombre_listaCtrl,
@@ -47,28 +44,22 @@ export class RegistrarListasComponent implements OnInit {
       estado: form.estado,
       id_proceso: form.id_proceso
     }
-    // console.log(data);
-    // console.log(this.registrarListaForm.value);
+
     const formData = new FormData();
     formData.append('image', this.registrarListaForm.get('image').value);
 
     this.listaService.RegistrarLista(data).subscribe(res => {
-      console.log(res);
-      console.log(res.id);
-      this.toastr.success(res.message)
+      
+      if (res.id !== null && form.imagen !== "") {
+        
+        this.listaService.SubirImagen(formData, res.id).subscribe(response => {
+          
+          this.LimpiarCampos()
+          this.dialogRef.close(true);
+        });
+        
+      }
 
-      this.listaService.SubirImagen(formData, res.id).subscribe(response => {
-        this.toastr.success('Operación Exitosa', 'imagen subida.');
-        this.LimpiarCampos()
-        this.dialogRef.close(true);
-      }, err => {
-        this.toastr.error(err)
-        console.log(err);
-      });
-
-    }, err => {
-      this.toastr.error(err)
-      console.log(err);
     })
   }
 
