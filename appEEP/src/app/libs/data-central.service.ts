@@ -8,6 +8,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadingComponent } from '../components/loading/loading.component';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +35,7 @@ export class DataCentralService {
 
   // variables para manejar los permisos para cada transaccion o verificacion del menu de acuerdo al rol.
   private permisosSistema: permisosSistema = { crear: false, editar: false, elminar: false };
-  public get permisos() : permisosSistema { return this.permisosSistema };
+  public get permisos(): permisosSistema { return this.permisosSistema };
 
   // variable para manejar proceso de carga cuando realiza las peticiones. Para mostar ese dialogo.
   private loading: boolean;
@@ -63,8 +66,6 @@ export class DataCentralService {
 
     const ciphertext = AES.encrypt(JSON.stringify(data.user), this.SECRETE_KEY).toString(); // datos de usuario
     localStorage.setItem('d', ciphertext)
-    const menutext = AES.encrypt(JSON.stringify(data.menu), this.SECRETE_KEY).toString(); // datos del menu segun el rol
-    localStorage.setItem('m', menutext)
   }
 
   /**
@@ -100,22 +101,17 @@ export class DataCentralService {
   }
 
   /**
-   * Desencripta los datos del menu del rol que tiene el usuario logeado.
+   * Consulta los datos del menu del rol que tiene el usuario logeado.
    */
-  public desencriptarMenu(): void {
-    this.dataMenuLocal = [] as Menu[]
-    const m = localStorage.getItem('m');
-    if (m === null) return;
-
-    const bytes = AES.decrypt(m, this.SECRETE_KEY);
-    this.dataMenuLocal = JSON.parse(bytes.toString(enc.Utf8)) as Menu[];
-    this.setMenuRol(this.dataMenuLocal);
+  public ConsultarMenu() {
+    this.dataMenuLocal = [] as any[]
+    return this.http.get<any>(`${this.API_URL}/auth/menu`)
   }
 
   /**
    * es para manejar permisos en la ruta que esta
    */
-   setPermisos(value: any) {
+  setPermisos(value: any) {
     this.permisosSistema = {
       crear: value.crear,
       editar: value.editar,
@@ -128,23 +124,23 @@ export class DataCentralService {
    * Llama a los menus de acurdo al rol del usuario.
    * @param menu Menu general descencriptado o enviodo desde la base de datos.
    */
-  public setMenuRol(menu: Menu[]): void {
+  async setMenuRol(menu: any[]) {
+    this.dataMenuLocal = [...menu];
     this.menuNodelocal = [];
     if (menu.length === 0) return;
 
-    menu.forEach(o => {
-      this.menuNodelocal.push(
-        {
-          name: o.nombre,
-          icono: o.icon,
-          children: (o.hijos.length === 0) ? [{ name: '', url: '/#'}] :
-            o.hijos.filter(h => { return h.mostrarmenu === true})
+    for (const m of this.dataMenuLocal) {
+      const item = {
+        name: m.nombre,
+        icono: m.icon,
+        children: (m.hijos.length === 0) ? [{ name: '', url: '/#' }] :
+          m.hijos.filter(h => { return h.mostrarmenu === true })
             .map(h => {
-              return { name: h.nombre, url: '/' + h.cruta}
+              return { name: h.nombre, url: '/' + h.cruta }
             })
-        }
-      )
-    })
+      }
+      this.menuNodelocal.push(item)
+    }
     if (menu[0].hijos.length === 0) return;
 
     let url = menu[0].hijos[0].cruta;
@@ -152,15 +148,30 @@ export class DataCentralService {
   }
 
   /**
+  * Metodo para subir archivos.
+  * @param formData FormData de los archivos
+  */
+  SubirArchivo(formData, metodo: string) {
+    if (metodo === '') return;
+    
+    const params = new HttpParams()
+    .set('metodo', metodo)
+    return this.http.post(`${this.API_URL}/archivo/updatefile`, formData, {params})
+
+  }
+
+
+  /**
    * Metodo para eliminar registros de la base de datos.
    * @param idreg Id del registro
    * @param nametable nombre de la tabla referencia
    * @returns Observable de la peticion a la API
    */
-  EliminarRegistro(idreg: string, nametable: string) {
+  EliminarRegistro(idreg: string, nametable: string, pkatributo: string) {
     const params = new HttpParams()
       .set('nametable', nametable)
       .set('idreg', idreg)
+      .set('pkatributo', pkatributo)
     return this.http.delete<any>(`${this.API_URL}/delete/registro`, { params })
   }
 
@@ -173,7 +184,7 @@ export class DataCentralService {
     // SE DEFINE TODO EL ABECEDARIO QUE SE VA A USAR.
     let letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
     // ES LA VALIDACIÓN DEL KEYCODES, QUE TECLAS RECIBE EL CAMPO DE TEXTO.
-    let especiales = [8, 37, 39, 46, 6, 13];
+    let especiales = [8, 37, 39, 46, 6, 13, 32];
     let tecla_especial = false
     for (var i in especiales) {
       if (key == especiales[i]) {
@@ -209,6 +220,12 @@ export class DataCentralService {
       })
       return false;
     }
+  }
+
+  llenarVariablesTabla(data: any, paginator: MatPaginator) {
+    let dataSource = new MatTableDataSource(data);
+    dataSource.paginator = paginator;
+    return dataSource
   }
 
 }

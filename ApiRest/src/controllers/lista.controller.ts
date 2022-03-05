@@ -1,22 +1,20 @@
 import { Request, Response } from "express";
-import pool from "../database";
+import {pool} from "../database";
 import path from 'path';
 import { ImagenBase64LogosEmpresas } from '../libs/multer'
 
 export const subirImageLista = async (req: Request, res: Response) => {
 
-    const logo = req.file.filename;
-    const id_lista = req.params.id_lista;
-    console.log('*******************');
-    console.log(logo);
-    console.log(req.file.path);
-    console.log(req.file);
-    console.log(req.params);
-    console.log('*******************');
-
-    await pool.query('UPDATE lista_electoral SET logo = $1 WHERE id = $2', [logo, id_lista])
-
-    return res.status(400).jsonp({ message: 'Foto guardada' });
+    try {
+        const l:any = req['files'];
+        const logo = l.filename;
+        const id_lista = req.params.id_lista;
+        await pool.query('UPDATE lista_electoral SET logo = $1 WHERE id = $2', [logo, id_lista])
+    
+        return res.status(200).jsonp({ cod: "OK", message: 'Foto guardada' });
+    } catch (error) {
+        return res.status(500).jsonp({ message: 'Fallo en la subida de la imagen' });
+    }
 }
 
 export const getListasElectoral = async (req: Request, res: Response) => {
@@ -31,9 +29,9 @@ export const getListasElectoral = async (req: Request, res: Response) => {
             }))
         })
         if (LISTA.length === 0) {
-            return res.status(200).jsonp({ cod: "OK", message: 'No hay registros' })
+            return res.status(200).jsonp({ cod: "OK", message: 'Agregar lista de postulantes' })
         } else {
-            return res.status(200).jsonp({ cod: "OK", message: "Voto Registrado", LISTA })
+            return res.status(200).jsonp({ cod: "OK", message: "Lista de candidatos", LISTA })
         }
     } catch (error) {
         return res.status(500).jsonp({ message: 'Fallo en la BDD' });
@@ -51,15 +49,10 @@ export const createListas = async (req: Request, res: Response) => {
     const { nom_lista, descripcion, estado, id_proceso } = req.body;
     try {
 
-        await pool.query('INSERT INTO lista_electoral(nom_lista, descripcion, estado, id_proceso) VALUES($1, $2, $3, $4)', [nom_lista, descripcion, estado, id_proceso]);
+        const lista = await pool.query('INSERT INTO lista_electoral(nom_lista, descripcion, estado, id_proceso) VALUES($1, $2, $3, $4) RETURNING id', [nom_lista, descripcion, estado, id_proceso]);
 
         return res.status(200).jsonp({
-            id: await pool.query('SELECT MAX(id) FROM lista_electoral').then(result => {
-                return result.rows.map(obj => {
-                    console.log(obj.max);
-                    return obj.max
-                })[0];
-            }),
+            id: (lista.rows.length > 0) ? lista.rows[0].id : null,
             cod: "OK",
             message: 'Registro ingresado con éxito'
         })

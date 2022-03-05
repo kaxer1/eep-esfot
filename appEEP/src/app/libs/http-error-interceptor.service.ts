@@ -17,8 +17,11 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
       tap(evt => {
         if (evt instanceof HttpResponse) {
           this.dcentral.setLoading(false);
-          if (evt.body && evt.body.cod == "OK")
-            this.dcentral.mostrarmsgexito(evt.body.message);
+          if (evt.body && evt.body.cod == "OK") {
+            if (evt.body.message !== "") {
+              this.dcentral.mostrarmsgexito(evt.body.message);
+            }
+          }
           if (evt.body && evt.body.cod == "ERROR")
             this.dcentral.mostrarmsgerror(evt.body.message);
         }
@@ -38,6 +41,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
 
         // Muestra el mensaje de error.
         this.dcentral.mostrarmsgerror(errorMessage);
+        this.dcentral.setLoading(false);
         return throwError(errorMessage);
       })
     );

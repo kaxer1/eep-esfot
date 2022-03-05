@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +8,7 @@ import { CandidaturaService } from 'src/app/services/candidatura.service';
 import { DataCentralService } from '../../../libs/data-central.service';
 import { ICandidatos } from '../../../interfaces/proceso.interface';
 import { EditDialogComponent } from './editdialog/editDialog.component';
+
 @Component({
   selector: 'app-candidatos',
   templateUrl: './candidatos.component.html',

@@ -4,14 +4,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material.module';
 
 import { BotonesComponent } from './botones/botones.component';
+import { UploadfilesComponent } from './uploadfiles/uploadfiles.component';
 
 @NgModule({
-  declarations: [BotonesComponent],
+  declarations: [BotonesComponent, UploadfilesComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MaterialModule
   ],
-  exports: [BotonesComponent],
+  exports: [BotonesComponent, UploadfilesComponent],
 })
 export class FormsAplicacionModule { }

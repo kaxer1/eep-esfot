@@ -14,7 +14,6 @@ export class CandidaturaService {
 
   ListaCandidatos(id_lista: number) {
     return this.http.get<any>(`${this.API_URL}/lista/${id_lista}`)
-
   }
 
   RegistrarCandidato(data: any) {

@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
+import { Menu } from 'interfaces/user.iterface';
 import jwt from 'jsonwebtoken';
-import pool from '../database'
+import {pool} from '../database'
 import { Proceso } from '../interfaces/proceso.interface';
 
 interface IPayload {
     _id: number,
     rol: number,
+    menu: Menu[],
     iat: number,
     exp: number,
     proceso: Proceso[]
@@ -36,6 +38,7 @@ export const TokenValidation = async (req: Request, res: Response, next: NextFun
 
         req.userId = payload._id;
         req.userRol = payload.rol;
+        req.menu = payload.menu;
 
         next()
     } catch (error: any) {

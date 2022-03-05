@@ -6,6 +6,10 @@ import { EstudiantesRoutingModule } from './estudiantes.routing';
 import { EstudiantesComponent } from './estudiantes.component';
 
 import { MaterialModule } from 'src/app/material/material.module';
+import { FormsAplicacionModule } from '../../../components/forms/forms-aplicacion.module';
+import { AccionesBtnModule } from '../../../components/buttons/acciones-btn.module';
+import { PipesModule } from '../../../pipes/pipes.module';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +19,10 @@ import { MaterialModule } from 'src/app/material/material.module';
     CommonModule,
     EstudiantesRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AccionesBtnModule,
+    FormsAplicacionModule,
+    PipesModule
   ]
 })
 export class EstudiantesModule { }

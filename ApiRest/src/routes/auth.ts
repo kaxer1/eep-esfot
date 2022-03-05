@@ -3,8 +3,9 @@ const router: Router = Router();
 
 import { TokenValidation } from '../libs/verifyToken';
 
-import { signin } from '../controllers/auth.controller';
+import { consultarMenu, signin } from '../controllers/auth.controller';
 
 router.post('/signin', signin);
+router.get('/menu', TokenValidation, consultarMenu);
 
 export default router;

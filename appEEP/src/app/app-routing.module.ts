@@ -16,6 +16,11 @@ const routes: Routes = [
   //   canActivate: [AuthGuard],
   //   data: { log: false }
   // },
+
+  // Seguridad
+  { path: 'opcionesmenu', loadChildren: () => import('src/app/pages/admin/seguridad/opcionesmenu/opcionesmenu.module').then(m => m.OpcionesMenuModule), canActivate: [AuthGuard] },
+  { path: 'roles', loadChildren: () => import('src/app/pages/admin/seguridad/roles/roles.module').then(m => m.RolesModule), canActivate: [AuthGuard] },
+  { path: 'transacciones', loadChildren: () => import('src/app/pages/admin/seguridad/transacciones/transacciones.module').then(m => m.TransaccionesModule), canActivate: [AuthGuard] },
   // Administradores
   { path: 'candidatos/:id', loadChildren: () => import('src/app/pages/admin/candidatos/candidatos.module').then(m => m.CandidatosModule), canActivate: [AuthGuard] },
   { path: 'votos-live', loadChildren: () => import('src/app/pages/admin/estadistica/estadistica.module').then(m => m.EstadisticaModule), canActivate: [AuthGuard] },

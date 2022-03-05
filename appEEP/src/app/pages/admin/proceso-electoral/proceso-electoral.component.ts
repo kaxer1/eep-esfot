@@ -1,10 +1,8 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { ProcesoService } from 'src/app/services/proceso.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { DataCentralService } from 'src/app/libs/data-central.service';
 
 @Component({
@@ -37,9 +35,8 @@ export class ProcesoElectoralComponent implements AfterViewInit {
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
-  ArrayProceso: any = [];
+  lregistros: any = [];
   filtroProcesos = '';
 
   constructor(
@@ -65,13 +62,9 @@ export class ProcesoElectoralComponent implements AfterViewInit {
       if (res.cod === "ERROR") {
         return;
       }
-      this.dataSource = new MatTableDataSource(res.procesos);
-      this.ArrayProceso = this.dataSource.data;
-      // console.log(this.dataSource);
-      console.log(this.dataSource.data);
+      this.dataSource = this.dcentral.llenarVariablesTabla(res.procesos, this.paginator);
+      this.lregistros = this.dataSource.data;
 
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     })
   }
 

@@ -57,9 +57,7 @@ export class LoginComponent implements OnInit {
   SuccessResponse(res) {
     this.dcentral.encriptarData(res);
     this.dcentral.desencriptarDataUser(); // es necesario para actualizacion rapida de los datos en el sistema.
-    this.dcentral.desencriptarMenu();
     this.LoginService.setlogin(true);
-    
     this.dcentral.setMenuRol(res.menu);
     
   }

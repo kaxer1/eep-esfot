@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { Lista_electoral, Proceso } from "interfaces/proceso.interface";
-import pool from '../database'
+import {pool} from '../database'
 
 export const RegistrarProceso = async (req: Request, res: Response) => {
     // let {descripcion,semestre,fec_eleccion} = req.body
-    let { descripcion, semestre, fec_eleccion } = req.body
-    console.log(descripcion, semestre, fec_eleccion);
+    let { descripcion, semestre, fec_eleccion, hora_inicio, hora_final } = req.body
+    console.log(descripcion, semestre, fec_eleccion, hora_inicio, hora_final);
 
     try {
-        await pool.query('INSERT INTO proceso_electoral(descripcion, semestre, fec_eleccion) VALUES($1, $2, $3) ', [descripcion, semestre, fec_eleccion])
+        await pool.query('INSERT INTO proceso_electoral(descripcion, semestre, fec_eleccion, hora_inicio, hora_final) VALUES($1, $2, $3, $4, $5) ', [descripcion, semestre, fec_eleccion, hora_inicio, hora_final])
         return res.status(200).jsonp({ cod: "OK", message: 'Se guardo el proceso' });
     } catch (error) {
         return res.status(500).jsonp({ message: 'Fallo en la BDD' });
@@ -29,9 +29,9 @@ export const ObtenerProcesosElectorales = async (req: Request, res: Response) =>
             })
         });
 
-    if (datosConsulta.length === 0) return res.status(400).jsonp({ message: 'No tienen registros de procesos' });
+    if (datosConsulta.length === 0) return res.status(200).jsonp({ cod: "ERROR", message: 'No tienen registros de procesos' });
 
-    return res.status(200).jsonp({ cod: "OK", message: "Voto Registrado", PROCESOS: datosConsulta });
+    return res.status(200).jsonp({ cod: "OK", message: "", procesos: datosConsulta });
 }
 
 export const infoProcesoToUsuarios = async (req: Request, res: Response) => {
@@ -43,8 +43,8 @@ export const infoProcesoToUsuarios = async (req: Request, res: Response) => {
                 return proceso
             });
 
-        if (!proceso) return res.status(400).jsonp({ message: 'No hay procesos electorales activos' });
-
+        if (!proceso) return res.status(200).jsonp({ cod: "ERROR", message: "No hay procesos electorales activos" });
+    
         proceso.lista_electoral = await pool.query('SELECT * FROM lista_electoral WHERE id_proceso = $1', [proceso.id])
             .then(result => {
                 const lista: Lista_electoral[] = result.rows

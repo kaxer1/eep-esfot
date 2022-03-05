@@ -41,10 +41,12 @@ export class AppComponent implements OnInit {
     }
   }
 
-  ejecutarPermisos() {
+  async ejecutarPermisos() {
     try {
       this.dcentral.desencriptarDataUser();
-      this.dcentral.desencriptarMenu();
+      await this.dcentral.ConsultarMenu().subscribe(resp => {
+        this.dcentral.setMenuRol(resp.menu);
+      });
     } catch (error) { }
 
     if (this.muser == null || this.muser === undefined) {

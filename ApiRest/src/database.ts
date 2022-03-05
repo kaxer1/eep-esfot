@@ -5,7 +5,7 @@ const pool = new Pool({
     host: 'localhost',
     port: 5432,
     database: 'eep',
-    password: 'fulltime'
+    password: 'admin'
 });
 
 pool.query('SELECT NOW()', (err, res) => {
@@ -16,4 +16,18 @@ pool.query('SELECT NOW()', (err, res) => {
     }
 });
 
-export default pool;
+import { Sequelize } from 'sequelize'
+import { database } from './config';
+
+const sequelize = new Sequelize(
+    database.database,
+    database.username,
+    database.password, 
+    { 
+        host: database.host,
+        dialect: "postgres",
+        port: 5432
+    },
+);
+
+export {sequelize, pool};

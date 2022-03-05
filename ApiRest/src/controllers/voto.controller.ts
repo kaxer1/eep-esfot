@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import blockchain from "../libs/blockchain";
-import pool from '../database'
+import {pool} from '../database'
 
 // voto blockchain
 export const registrarVoto = async (req: Request, res: Response) => {

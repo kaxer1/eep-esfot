@@ -46,27 +46,28 @@
                     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
                 </mat-form-field>
                 <div class="table-responsive">
+                    <div class="cabecera-tabla">Proceso electoral</div>
                     <table class="table table-hover table-sm">
                         <thead class="thead-light">
-                            <tr style="text-align: center;">
-                                <th scope="col">Código</th>
+                            <tr>
+                                <th style="text-align: right;" scope="col">Código</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Semestre</th>
                                 <th scope="col">Fecha</th>
-                                <th scope="col">Acciones</th>
+                                <th style="text-align: center;" scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let e of ArrayProceso | procesos: filtroProcesos">
-                                <td scope="row">{{e.id}}</td>
-                                <td>{{e.descripcion}}</td>
-                                <td>{{e.estado}}</td>
-                                <td>{{e.semestre}}</td>
-                                <td>{{e.fec_eleccion.split('T')[0]}}</td>
+                            <tr *ngFor="let reg of lregistros | procesos: filtroProcesos">
+                                <td style="text-align: right;" scope="row">{{reg.id}}</td>
+                                <td>{{reg.descripcion}}</td>
+                                <td>{{reg.estado}}</td>
+                                <td>{{reg.semestre}}</td>
+                                <td>{{reg.fec_eleccion |date: 'dd-MM-yyyy'}}</td>
                                 <td class="d-flex justify-content-center">
-                                    <a type="button" [routerLink]="['/listas/', e.id]"
-                                        [queryParams]="{ descripcion: e.descripcion, estado: e.estado, semestre: e.semestre, fecha: e.fec_eleccion }">
+                                    <a type="button" [routerLink]="['/listas/', reg.id]"
+                                        [queryParams]="{ descripcion: reg.descripcion, estado: reg.estado, semestre: reg.semestre, fecha: reg.fec_eleccion }">
                                         <mat-icon class="icono-style color" matSuffix matTooltip="Visualiza la información de ese proceso electoral">
                                             assignment
                                         </mat-icon>

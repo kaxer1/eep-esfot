@@ -16,6 +16,8 @@ export class EliminarComponent {
   @Input() nameTable: string = '';
   @Input() idreg: string = '';
 
+  @Input() pkatributo: string = 'id';
+
   @Output() onDelete: EventEmitter<any> = new EventEmitter()
 
   public get permisos() : permisosSistema {
@@ -33,7 +35,7 @@ export class EliminarComponent {
 
     this.dcentral.dialog.open(DialogEliminar).afterClosed().subscribe(eliminar=> {
       if (eliminar == true) {
-        this.dcentral.EliminarRegistro(this.idreg, this.nameTable).subscribe(
+        this.dcentral.EliminarRegistro(this.idreg, this.nameTable, this.pkatributo).subscribe(
           data => { },
           err => { },
           () => { this.onDelete.emit() }
