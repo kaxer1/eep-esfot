@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AES, enc } from 'crypto-js';
 import { LoginResp, permisosSistema, User, userDefault } from '../interfaces/user.iterface';
 import { ToastrService } from 'ngx-toastr';
-import { Menu, MenuNode } from '../models/menu.model';
+import { Menu, MenuNode } from '../interfaces/menu.model';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { LoginService } from '../services/login/login.service';
 import { DataCentralService } from '../libs/data-central.service';
-import { MenuNode, Menu } from '../models/menu.model';
+import { MenuNode, Menu } from '../interfaces/menu.model';
 
 @Injectable({
   providedIn: 'root'

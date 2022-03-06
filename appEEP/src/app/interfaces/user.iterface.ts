@@ -1,4 +1,4 @@
-import { Menu } from "../models/menu.model";
+import { Menu } from "./menu.model";
 
 export interface LoginResp {
     cod: string,

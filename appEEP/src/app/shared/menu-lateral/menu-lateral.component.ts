@@ -1,6 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
-import { MenuNode } from '../../models/menu.model';
+import { MenuNode } from '../../interfaces/menu.model';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { DataCentralService } from '../../libs/data-central.service';
 import { User } from '../../interfaces/user.iterface';

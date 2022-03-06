@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { DataCentralService } from './libs/data-central.service';
 import { LoginService } from './services/login/login.service';
 import { User } from './interfaces/user.iterface';
-import { Menu } from './models/menu.model';
+import { Menu } from './interfaces/menu.model';
 
 @Component({
   selector: 'app-root',
