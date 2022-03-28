@@ -35,6 +35,10 @@ export class AuthGuard implements CanActivate {
       }
     }
 
+    if (route.routeConfig.path == 'recuperar' || route.routeConfig.path == 'confirmaremail') {
+      return true;
+    }
+
     this.router.navigate(['/']);
     return false;
   }

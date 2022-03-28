@@ -4,6 +4,7 @@ import { ProcesoService } from 'src/app/services/proceso.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DataCentralService } from 'src/app/libs/data-central.service';
+import { EditDialogComponent } from './editdialog/editDialog.component';
 
 @Component({
   selector: 'app-proceso-electoral',
@@ -76,6 +77,15 @@ export class ProcesoElectoralComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  abirDialgo(registro: any) { 
+    this.dcentral.dialog.open(EditDialogComponent, { width: '400px', data: registro})
+      .afterClosed().subscribe(update => {
+        if (update === true) {
+          this.ObtenerDatosTabla()
+        }
+      })
   }
 
   GuardarProcesoElectoral(form) {

@@ -17,6 +17,24 @@ export class PrincipalEstudianteComponent implements OnInit {
 
   showVotos: boolean = true;
 
+  // blanco: Lista_electoral = {
+  //   id: number,
+  //   nom_lista: string,
+  //   descripcion: string,
+  //   logo: string,
+  //   estado: boolean,
+  //   id_proceso: number,
+  // }
+
+  // nulo: Lista_electoral = {
+  //   id: number,
+  //   nom_lista: string,
+  //   descripcion: string,
+  //   logo: string,
+  //   estado: boolean,
+  //   id_proceso: number,
+  // }
+
   public get user(): User {
     return this.dcentral.user
   }

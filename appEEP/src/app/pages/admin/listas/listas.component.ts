@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ListaService } from 'src/app/services/lista.service';
 import { RegistrarDialogComponent } from './registrardialog/registrarDialog.component';
 import { DataCentralService } from '../../../libs/data-central.service';
+import { EditDialogComponent } from './editdialog/editDialog.component';
 
 @Component({
   selector: 'app-listas',
@@ -31,6 +31,16 @@ export class ListasComponent implements OnInit {
 
     this.FuncionalidadInicial();
     this.ObtenerLista(this.id_proceso)
+  }
+
+  abirDialgo(registro: any) { 
+    this.dcentral.dialog.open(EditDialogComponent, { width: '800px', data: registro})
+      .afterClosed().subscribe(update => {
+        if (update === true) {
+          this.FuncionalidadInicial();
+          this.ObtenerLista(this.id_proceso)
+        }
+      })
   }
 
   FuncionalidadInicial() {

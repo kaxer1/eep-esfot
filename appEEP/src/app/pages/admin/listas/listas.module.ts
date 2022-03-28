@@ -8,12 +8,14 @@ import { AccionesBtnModule } from '../../../components/buttons/acciones-btn.modu
 import { ListasRoutingModule } from './listas.routing';
 import { ListasComponent } from './listas.component';
 import { RegistrarDialogComponent } from './registrardialog/registrarDialog.component';
+import { EditDialogComponent } from './editdialog/editDialog.component';
 
 
 @NgModule({
   declarations: [
     ListasComponent,
-    RegistrarDialogComponent
+    RegistrarDialogComponent,
+    EditDialogComponent
   ],
   imports: [
     CommonModule,

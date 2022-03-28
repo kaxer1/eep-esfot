@@ -7,6 +7,5 @@ import { getListaCandidatos, createCandidato, updateCandidato } from '../control
 router.get('/lista/:id_lista', TokenValidation, getListaCandidatos);
 router.post('/registrar', TokenValidation, createCandidato);
 router.put('/editar', TokenValidation, updateCandidato);
-// router.put('/img-lista/:id_lista', TokenValidation, subirImageLista);
 
 export default router;

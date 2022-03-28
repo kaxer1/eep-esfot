@@ -36,6 +36,13 @@ export class ListaService {
    */
   RegistrarLista(data: any) {
     return this.http.post<any>(`${this.API_URL}/registrar-lista`, data)
-
+  }
+  
+  /**
+   * Metodo para actualizar lista electoral o candidatura.
+   * @param data Datos del form
+   */
+  ActualizarLista(data: any) {
+    return this.http.put<any>(`${this.API_URL}/update-lista`, data)
   }
 }

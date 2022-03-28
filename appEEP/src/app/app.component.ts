@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DataCentralService } from './libs/data-central.service';
 import { LoginService } from './services/login/login.service';
@@ -13,6 +13,7 @@ import { Menu } from './interfaces/menu.model';
 })
 export class AppComponent implements OnInit {
   title = 'appEEP';
+  public url = '';
 
   public get muser(): User {
     return this.dcentral.user
@@ -27,15 +28,15 @@ export class AppComponent implements OnInit {
   }
 
   constructor(
-    public router: Router,
     public location: Location,
     private loginService: LoginService,
-    private dcentral: DataCentralService,
+    private dcentral: DataCentralService
   ) { }
 
   ngOnInit() {
     this.loginService.setlogin(false);
-    if ((localStorage.getItem('d') !== undefined && localStorage.getItem('d') !== null) || (localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null && localStorage.getItem('token') !== '')) {
+    this.url = this.location.path();
+    if ((localStorage.getItem('d') !== undefined && localStorage.getItem('d') !== null) || this.dcentral.validarToken()) {
       this.loginService.setlogin(true);
       this.ejecutarPermisos();
     }
@@ -59,7 +60,17 @@ export class AppComponent implements OnInit {
   iniciarAmbiente(user: User) {
     console.log(user);
     console.log(this.mmenu);
+  }
 
+  validarUrl(url: string): string {
+    const valida = url.includes("?token");
+    let value = '/';
+    if (valida) {
+      value = url.split("?token")[0];
+    } else {
+      value = url;
+    }
+    return value;
   }
 
 }

@@ -12,7 +12,7 @@ export class EditarComponent implements OnInit {
   @Input() registro: any;
   @Output() onEdit: EventEmitter<any> = new EventEmitter()
 
-  label: string = 'Editar';
+  @Input() label: string = 'Editar';
 
   public get permisos() : permisosSistema {
     return this.dcentral.permisos

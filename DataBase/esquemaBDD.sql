@@ -32,6 +32,7 @@ create table lista_electoral(
 	logo varchar(200), 
 	estado boolean default true,
 	id_proceso int not null,
+	contenido text default null
 	foreign key (id_proceso) references proceso_electoral(id)
 );
 
@@ -82,8 +83,8 @@ select * from lista_electoral
 select * from candidatos
 
 select * from transacciones
+select * from proceso_electoral
 
 alter table usuario add column activo boolean default null
 drop table usuario
 
-alter table rol add column vota boolean default false

@@ -9,7 +9,7 @@ import { EditDialogComponent } from './editdialog/editDialog.component';
 @Component({
   selector: 'app-opcionesmenu',
   templateUrl: './opcionesmenu.html',
-  styleUrls: ['./opcionesmenu.component.sass'],
+  styleUrls: ['../../../stylesTables.css']
 })
 export class OpcionesMenuComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

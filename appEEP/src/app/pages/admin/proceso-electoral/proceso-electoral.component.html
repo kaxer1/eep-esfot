@@ -72,6 +72,10 @@
                                             assignment
                                         </mat-icon>
                                     </a>
+                                    <btn-editar [isButtom]="false" [registro]="reg" (onEdit)="abirDialgo( $event )">
+                                    </btn-editar>
+                                    <btn-eliminar [isButtom]="false" [idreg]="reg.id" [nameTable]="'proceso_electoral'"
+                                        (onDelete)="ngAfterViewInit()"></btn-eliminar>
                                 </td>
                             </tr>
                         </tbody>

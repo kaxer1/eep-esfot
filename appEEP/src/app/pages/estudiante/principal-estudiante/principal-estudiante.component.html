@@ -1,9 +1,8 @@
 <div class="container m-x-2 card" *ngIf="showVotos; else showMessageSuccess">
 
-    <h2>AQUI VAS A VOTAR</h2>
-    <h4>{{ procesos?.descripcion }}</h4>
-    <h5>{{ procesos?.semestre }}</h5>
-    <span>{{ procesos?.fec_eleccion | date: 'fullDate' }}</span>
+    <h4 style="text-align: center;">Proceso: {{ procesos?.descripcion }}</h4>
+    <h5>Periodo: {{ procesos?.semestre }}</h5>
+    <span>Fecha: {{ procesos?.fec_eleccion | date: 'fullDate' }}</span>
 
     <br>
     <div class="d-flex flex-wrap justify-content-around">

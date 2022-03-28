@@ -44,7 +44,9 @@ export class LoginService {
 
   logout() {
     this.setlogin(false);
-    this.router.navigate(["/"], {skipLocationChange: false});
+    this.router.navigate(["/"], { skipLocationChange: false }).finally(() => {
+      location.reload()
+    });
     this.dcentral.limpiarDataCentral();
   }
 
@@ -56,10 +58,24 @@ export class LoginService {
     return this.iniciar_login
   }
 
-  
   public setlogin(l : boolean) {
     this.iniciar_login = l;
   }
+
+  /**
+   * Metodos para recuperar contraseña.
+   */
   
+  getTokenRecuperacion() {
+    return localStorage.getItem('tokenRecuperacion');
+  }
+
+  postSendEmail(dataFormulario:any) {
+    return this.http.post<LoginResp>(`${this.API_URL}/auth/email`, dataFormulario);
+  }
+
+  postSendPassword(dataFormulario:any) {
+    return this.http.post<LoginResp>(`${this.API_URL}/auth/recuperar`, dataFormulario);
+  }
 
 }

@@ -17,3 +17,13 @@ export interface Lista_electoral {
     estado: boolean,
     id_proceso: number
 }
+
+export interface msgEmail {
+    from: string,
+    to: string,
+    subject: string,
+    html: string,
+    generateTextFromHTML?: boolean,
+    text?: string,
+    amp?: string
+};

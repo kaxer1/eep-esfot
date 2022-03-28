@@ -4,18 +4,11 @@ import { AuthGuard } from './guards/auth.guard';
 
 // componentes
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { RecuperarPasswordComponent } from './pages/login/recuperar-password/recuperar-password.component';
-
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'recuperar', component: RecuperarPasswordComponent, canActivate: [AuthGuard] },
-  // {
-  //   path: 'login',
-  //   loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
-  //   canActivate: [AuthGuard],
-  //   data: { log: false }
-  // },
+  { path: 'recuperar', loadChildren: () => import('src/app/pages/login/recuperarpassword/recuperarpassword.module').then(m => m.RecuperarPasswordModule), canActivate: [AuthGuard] },
+  { path: 'confirmaremail', loadChildren: () => import('src/app/pages/login/confirmaremail/confirmaremail.module').then(m => m.ConfirmarEmailModule), canActivate: [AuthGuard] },
 
   // Seguridad
   { path: 'opcionesmenu', loadChildren: () => import('src/app/pages/admin/seguridad/opcionesmenu/opcionesmenu.module').then(m => m.OpcionesMenuModule), canActivate: [AuthGuard] },
@@ -30,13 +23,6 @@ const routes: Routes = [
   
   // estudiantes
   { path: 'home-estudiante', loadChildren: () => import('src/app/pages/estudiante/principal-estudiante/principal-estudiante.module').then(m => m.PrincipalEstudianteModule), canActivate: [AuthGuard] },
-
-  // {
-  //   path: 'estudiante',
-  //   loadChildren: () => import('./pages/estudiante/estudiante.module').then(m => m.EstudianteModule),
-  //   canActivate: [AuthGuard],
-  //   data: { rol: 2 }
-  // },
   
   //Wild Card Route for 404 request
   { path: '**', pathMatch: 'full', component: ErrorPageComponent }

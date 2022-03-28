@@ -53,7 +53,7 @@ export class DataCentralService {
     this.loading = value;
 
     if (this.loading === true) {
-      this.dialogRef = this.dialog.open(LoadingComponent, { width: '200px', });
+      this.dialogRef = this.dialog.open(LoadingComponent, { width: '200px' });
     }
 
   }
@@ -78,6 +78,20 @@ export class DataCentralService {
 
     const bytes = AES.decrypt(d, this.SECRETE_KEY);
     this.dataUserLocal = JSON.parse(bytes.toString(enc.Utf8)) as User;
+  }
+
+  public validarToken() {
+    if (localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null && localStorage.getItem('token') !== '') {
+      return true;
+    } 
+    return false
+  }
+
+  public validarTokenRecuperacion() {
+    if (localStorage.getItem('tokenRecuperacion') !== 'undefined' && localStorage.getItem('tokenRecuperacion') !== null && localStorage.getItem('tokenRecuperacion') !== '') {
+      return true;
+    } 
+    return false
   }
 
   /**

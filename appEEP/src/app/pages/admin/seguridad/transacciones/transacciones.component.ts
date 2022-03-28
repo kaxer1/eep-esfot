@@ -9,7 +9,7 @@ import { SeguridadService } from '../../../../services/seguridad.service';
 @Component({
   selector: 'app-transacciones',
   templateUrl: './transacciones.html',
-  styleUrls: ['./transacciones.component.sass']
+  styleUrls: ['../../../stylesTables.css']
 })
 export class TransaccionesComponent implements OnInit {
 

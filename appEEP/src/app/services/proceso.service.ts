@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ProcesoListaResp, ProcesoResp } from '../interfaces/proceso.interface';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +28,9 @@ export class ProcesoService {
 
   }
 
+  PutProcesoElectoral(data: any) {
+    return this.http.put<any>(`${this.API_URL}/update-proceso`, data)
+
+  }
 
 }

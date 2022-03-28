@@ -24,7 +24,6 @@ import { UserService } from './services/user.service';
 import { ProcesoService } from './services/proceso.service';
 import { ListaService } from './services/lista.service';
 import { CandidaturaService } from './services/candidatura.service';
-import { LoginModule } from './pages/login/login.module';
 
 // COMPONENTES
 import { AppComponent } from './app.component';
@@ -33,14 +32,14 @@ import { AppMainComponent } from './app.main.component';
 // Modules
 import { MaterialModule } from './material/material.module';
 import { SharedModule } from './shared/shared.module';
-import { LoadingComponent } from './components/loading/loading.component';
-
+import { LoginModule } from './pages/login/login.module';
+import { RecuperarPasswordModule } from './pages/login/recuperarpassword/recuperarpassword.module';
+import { ConfirmarEmailModule } from './pages/login/confirmaremail/confirmaremail.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppMainComponent,
-    LoadingComponent,
+    AppMainComponent
   ],
   imports: [
     CommonModule,
@@ -51,6 +50,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     LoginModule,
+    ConfirmarEmailModule,
+    RecuperarPasswordModule,
     MaterialModule,
     SharedModule
   ],

@@ -8,6 +8,7 @@ import { NavComponent } from './nav/nav.component';
 import { MenuLateralComponent } from './menu-lateral/menu-lateral.component';
 import { ButtonsMenuComponent } from './buttonsMenu/buttons-menu.component';
 import { InfoUserComponent } from './info-user/info-user.component';
+import { LoadingComponent } from '../components/loading/loading.component';
 
 @NgModule({
   exports: [
@@ -23,7 +24,8 @@ import { InfoUserComponent } from './info-user/info-user.component';
     MenuLateralComponent,
     ButtonsMenuComponent,
     InfoUserComponent,
-    InfoUserComponent
+    InfoUserComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

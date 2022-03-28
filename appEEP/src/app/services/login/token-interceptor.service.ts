@@ -16,10 +16,18 @@ export class TokenInterceptorService implements HttpInterceptor {
   // con esta clase me ayuda añadir la cabecera de autorizacion en cada peticion que se realice a la API
   intercept(req, next) {
     this.dcentral.setLoading(true);
+    let auth = '';
+    if (this.dcentral.validarToken()) {
+      auth = `Bearer ${this.loginServices.getToken()}`
+    } 
+    
+    if (this.dcentral.validarTokenRecuperacion()) {
+      auth = `Bearer ${this.loginServices.getTokenRecuperacion()}`
+    }
+
     const tokenizeReq = req.clone({
       setHeaders: {
-        // Authorization: `${this.loginServices.getToken()}`
-        Authorization: `Bearer ${this.loginServices.getToken()}`
+        authorization: auth
       }
     });
     return next.handle(tokenizeReq);

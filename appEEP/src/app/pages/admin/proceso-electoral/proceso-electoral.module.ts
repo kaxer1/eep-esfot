@@ -8,10 +8,14 @@ import { ProcesoElectoralComponent } from './proceso-electoral.component';
 
 import { FormsAplicacionModule } from '../../../components/forms/forms-aplicacion.module';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { EditDialogComponent } from './editdialog/editDialog.component';
+import { DialogsModule } from 'src/app/components/dialogs/dialogs.module';
+import { AccionesBtnModule } from 'src/app/components/buttons/acciones-btn.module';
 
 @NgModule({
   declarations: [
     ProcesoElectoralComponent,
+    EditDialogComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +23,9 @@ import { PipesModule } from '../../../pipes/pipes.module';
     MaterialModule,
     ReactiveFormsModule,
     FormsAplicacionModule,
-    PipesModule
+    PipesModule,
+    AccionesBtnModule,
+    DialogsModule
   ]
 })
 export class ProcesoElectoralModule { }

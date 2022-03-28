@@ -11,7 +11,7 @@ export class EliminarComponent {
 
   @Input() isButtom: boolean = true;
 
-  label: string = 'Eliminar';
+  @Input() label: string = 'Eliminar';
 
   @Input() nameTable: string = '';
   @Input() idreg: string = '';
