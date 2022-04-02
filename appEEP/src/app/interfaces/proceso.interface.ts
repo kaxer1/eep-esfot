@@ -20,6 +20,7 @@ export interface Lista_electoral {
     logo: string,
     estado: boolean,
     id_proceso: number,
+    contenido?: string
 }
 
 export const procesoValueDefault = {

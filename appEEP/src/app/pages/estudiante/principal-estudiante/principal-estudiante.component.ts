@@ -5,6 +5,7 @@ import { VotosService } from '../../../services/votos.service';
 import { DataCentralService } from '../../../libs/data-central.service';
 import { User } from '../../../interfaces/user.iterface';
 import { procesoValueDefault } from '../../../interfaces/proceso.interface';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-principal-estudiante',
@@ -17,24 +18,6 @@ export class PrincipalEstudianteComponent implements OnInit {
 
   showVotos: boolean = true;
 
-  // blanco: Lista_electoral = {
-  //   id: number,
-  //   nom_lista: string,
-  //   descripcion: string,
-  //   logo: string,
-  //   estado: boolean,
-  //   id_proceso: number,
-  // }
-
-  // nulo: Lista_electoral = {
-  //   id: number,
-  //   nom_lista: string,
-  //   descripcion: string,
-  //   logo: string,
-  //   estado: boolean,
-  //   id_proceso: number,
-  // }
-
   public get user(): User {
     return this.dcentral.user
   }
@@ -42,27 +25,26 @@ export class PrincipalEstudianteComponent implements OnInit {
   constructor(
     private procesoService: ProcesoService,
     private votoService: VotosService,
+    private loginService: LoginService,
     private dcentral: DataCentralService
   ) { }
 
   ngOnInit() {
     this.procesoService.infoProcesoToUsuarios().subscribe(
       procesos => { this.procesos = procesos.PROCESO }
-      // ,
-      // err => { },
-      // () => { }
     )
   }
 
   saveVoto(option_lista: Lista_electoral) {
+    option_lista.contenido = '';
     this.votoService.postVotoUsuario(option_lista).subscribe(res => {
 
       if (res.cod === "ERROR") {
-        this.dcentral.mostrarmsgerror(res.message);
         return;
       }
       this.showVotos = false;
       delete this.procesos;
+      this.loginService.logout();
     })
   }
 

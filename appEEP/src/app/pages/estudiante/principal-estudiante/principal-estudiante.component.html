@@ -10,6 +10,7 @@
         <mat-card *ngFor="let item of procesos?.lista_electoral " class="m-2 col-sm-11 col-md-5 col-lg-4 col-11" [style.background]="'#F3F3F3'">
             <mat-card-title>{{ item.nom_lista }}</mat-card-title>
             <mat-card-subtitle>{{ item.descripcion }}</mat-card-subtitle>
+            <img mat-card-image *ngIf="item.contenido !== null " src="{{item.contenido}}" class="img-fluid" alt="logo_empresa" srcset="">
             <mat-card-actions>
                 <button mat-raised-button color="primary" (click)="saveVoto(item)" [style.width]="'100%'">VOTAR</button>
             </mat-card-actions>

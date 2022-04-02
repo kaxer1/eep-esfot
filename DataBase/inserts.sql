@@ -1,7 +1,7 @@
 ----------------------- INSERT ROLES --------------------------
-INSERT INTO rol (id, nombre) VALUES (1, 'ADMIN');
-INSERT INTO rol (id, nombre) VALUES (2, 'ESTUDIANTE');
-INSERT INTO rol (id, nombre) VALUES (3, 'SUPER ADMIN');
+INSERT INTO rol (id, nombre, vota, tiemposesion) VALUES (1, 'ADMIN', false, 86400);
+INSERT INTO rol (id, nombre, vota, tiemposesion) VALUES (2, 'ESTUDIANTE', true, 300);
+INSERT INTO rol (id, nombre, vota, tiemposesion) VALUES (3, 'SUPER ADMIN', false, null);
 
 
 ---------------------- INSERT TRANSACCIONES ---------------------
@@ -33,5 +33,5 @@ INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, elim
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (14, 1, 'transacciones', 10, 'TRANSACIONES', null, true, true, true, true);
 
 
-INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (1, 'lambo', 'kevin', 'curay', '0503908857', 'f8a1d9cf3df31609b223416d6352457c', 'kevin.curay@epn.edu.ec', true, 1, false, null, null, null);
-INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (2, 'pacog', 'paco', 'gomez', '0503902455', '7e58d63b60197ceb55a1c487989a3720', 'paco.gomez@epn.edu.ec', true, 2, false, true, null, null);
+INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (1, 'lambo', 'kevin', 'curay', '0503908857', '132cb17c0f58421f03ca12f6770de0258f36ac31dcc082b6af9d4dfe4224e385', 'kevin.curay@epn.edu.ec', true, 1, false, null, null, null);
+INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (2, 'pacog', 'paco', 'gomez', '0503902455', '95c9f6244daf04aed0b8ae294e0372843e643cc28ddab1e936373c68543d8cc6', 'paco.gomez@epn.edu.ec', true, 2, true, true, null, null);

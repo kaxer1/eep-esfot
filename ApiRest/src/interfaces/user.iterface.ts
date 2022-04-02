@@ -11,7 +11,9 @@ export interface User {
     sufrago: boolean,
     activo: boolean | null,
     estudiante: boolean | null,
-    password: string
+    password: string,
+    vota?: boolean
+    tiemposesion?: number
 }
 
 export interface UsuarioAtributos {

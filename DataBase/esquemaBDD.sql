@@ -85,6 +85,5 @@ select * from candidatos
 select * from transacciones
 select * from proceso_electoral
 
-alter table usuario add column activo boolean default null
-drop table usuario
-
+select * from rol
+alter table rol add column tiemposesion int null

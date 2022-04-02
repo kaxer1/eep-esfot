@@ -1,3 +1,5 @@
+import { actualizarArchivoJson, crearArchivoJsonGenesis, leerArchivoPorProceso } from "./files";
+
 const SHA256 = require('crypto-js/sha256');
 
 function  calcularHash(block: any) {
@@ -5,8 +7,9 @@ function  calcularHash(block: any) {
         block.index +
         block.timestamp +
         block.hashAnterior +
-        JSON.stringify(block.data)
-    ).toString() //para transformar el resultado a string
+        JSON.stringify(block.data) +
+        block.nonce
+    ).toString()
 }
 
 class Block {
@@ -16,31 +19,48 @@ class Block {
     public timestamp: any;
     public data: any;
     public hash: string;
+    public nonce: number;
 
     constructor(index: number, timestamp: any, data: any, hashAnterior = "") {
         this.index = index;
         this.hashAnterior = hashAnterior;
         this.timestamp = timestamp;
         this.data = data;
+        this.nonce = 0;
         this.hash = calcularHash(this);
     }
 
+    minarBloque(dificultad: number) {
+        while (this.hash.substring(0, dificultad) !== Array(dificultad + 1).join('0')) {
+            this.nonce++;
+            this.hash = calcularHash(this)
+        }
+    }
 }
 
-class Blockchain {
+export class Blockchain {
     
     public chain: any = [];
+    public dificultad = 2;
 
-    constructor() {
+    constructor() { }
+
+    crearArchivoGenesis(filename: string) {
         const genesisBlock = new Block(0, new Date().getTime(), 'Bloque Genesis', "");
-        this.chain = [genesisBlock];
+        genesisBlock.minarBloque(this.dificultad);
+        crearArchivoJsonGenesis(filename, JSON.stringify([genesisBlock]));
+    }
+
+    async getDataArchivo(filename: string) {
+        const datablockchain = await leerArchivoPorProceso(filename);
+        this.chain = datablockchain;
     }
 
     getUltimoBloque() {
         return this.chain[this.chain.length - 1];
     }
 
-    crearNuevoBloque(data: any) {
+    crearNuevoBloque(filename: string, data: any) {
         const ultimoBloque = this.getUltimoBloque();
         const nuevoBloque = new Block(
             ultimoBloque.index + 1, 
@@ -48,10 +68,11 @@ class Blockchain {
             data,
             ultimoBloque.hash 
         );
-        this.agregarBloque(nuevoBloque);
+        nuevoBloque.minarBloque(this.dificultad); 
+        this.agregarBloque(nuevoBloque, filename);
     }
 
-    agregarBloque(nuevoBloque: any) {
+    agregarBloque(nuevoBloque: any, filename: string) {
         const ultimoBloque = this.getUltimoBloque();
 
         if (ultimoBloque.index + 1 !== nuevoBloque.index) {
@@ -62,19 +83,11 @@ class Blockchain {
             console.log('No minaste el bloque apropiadamente');            
         } else {
             this.chain.push(nuevoBloque);
+            actualizarArchivoJson(filename, JSON.stringify(this.chain))
         }
     }
 
     imprimir() {
-        this.chain.forEach((block: any) => console.log(`${JSON.stringify(block)} \n`));
         return this.chain;
     }
 }
-
-export const blockchain = new Blockchain();
-
-export default blockchain;
-// blockchain.crearNuevoBloque({de: 'kevin', a: 'ale', cantidad: 2});
-// blockchain.crearNuevoBloque({de: 'ale', a: 'oscar', cantidad: 1.5});
-// blockchain.crearNuevoBloque({de: 'oscar', a: 'jack', cantidad: 1});
-// blockchain.imprimir();

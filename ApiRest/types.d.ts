@@ -3,5 +3,6 @@ declare namespace Express {
         userId: number,
         userRol: number,
         menu: Menu[]
+        proceso: Proceso[]
     }
 }

@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
-import blockchain from "../libs/blockchain";
+import { Blockchain } from "../libs/blockchain";
 import {pool} from '../database'
+import { Proceso } from '../interfaces/proceso.interface';
 
+let BLOCK_CHAIN: Blockchain;
 // voto blockchain
 export const registrarVoto = async (req: Request, res: Response) => {
     try {
@@ -12,15 +14,26 @@ export const registrarVoto = async (req: Request, res: Response) => {
 
         if (!user) return res.status(200).jsonp({ cod: "ERROR", message: "Usuario no existe" });
 
-        blockchain.crearNuevoBloque(req.body);
+        BLOCK_CHAIN = new Blockchain();
+        const [proceso]: Proceso[] = req.proceso;
+        const filename = proceso.semestre + proceso.descripcion;
+        await BLOCK_CHAIN.getDataArchivo(filename)
+        BLOCK_CHAIN.crearNuevoBloque(filename, req.body);
 
         return res.status(200).jsonp({ cod: "OK", message: "Voto Registrado" });
     } catch (error) {
-        return res.status(500).jsonp({ message: "Falla de la BDD" });
+        return res.status(500).jsonp({ cod: "ERROR", message: "Falla de la BDD" });
     }
 };
 
-export const verVotos = (req: Request, res: Response) => {
+export const verVotos = async(req: Request, res: Response) => {
 
-    return res.status(200).jsonp(blockchain.imprimir());
+    try {
+        BLOCK_CHAIN = new Blockchain(); 
+        const [proceso]: Proceso[] = req.proceso;
+        await BLOCK_CHAIN.getDataArchivo(proceso.semestre + proceso.descripcion)
+        return res.status(200).jsonp(BLOCK_CHAIN.imprimir());
+    } catch (error) {
+        return res.status(500).jsonp({ message: "Falla de la respuesta del archivo" });
+    }
 }

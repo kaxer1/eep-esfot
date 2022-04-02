@@ -21,7 +21,9 @@ export const signin = async (req: Request, res: Response) => {
         if (password === undefined || password === null || password === '') return res.status(200).jsonp({ cod: "ERROR", message: "Password indefinido" });
 
         // busca usuario activo.
-        let user = await pool.query('SELECT (nombre || \' \' || apellido) as fullname, * FROM usuario WHERE email = $1 AND password = $2 AND activo = true', [email, password])
+        const subqueryvota = `(select r.vota from rol r where r.id = u.rol) as vota`
+        const subquerytiemposesion = `(select r.tiemposesion from rol r where r.id = u.rol) as tiemposesion`
+        let user = await pool.query(`SELECT (u.nombre || \' \' || u.apellido) as fullname, *, ${subqueryvota}, ${subquerytiemposesion}  FROM usuario u WHERE u.email = $1 AND u.password = $2 AND u.activo = true`, [email, password])
             .then(result => {
                 return result.rows[0]
             }) as User;
@@ -29,23 +31,20 @@ export const signin = async (req: Request, res: Response) => {
         if (user) {
             user.password = '';
             let menu = await sacarmenu(user.rol);
-            let sessiontime = 60 * 60 * 24; // tiempo 1 dia
 
             let token;
-            if (user.estudiante === true) {
+            if (user.vota === true) {
                 if (user.sufrago === true) return res.status(200).jsonp({ cod: "ERROR", message: "Usuario ya sufrago." });
-                let proceso = await pool.query('SELECT * FROM proceso_electoral WHERE estado = true ORDER BY fec_eleccion DESC LIMIT 1')
-                    .then(result => { return result.rows }) as Proceso[];
-                // sessiontime = 60 * 5
-                token = jwt.sign({ _id: user.id, rol: user.rol, proceso, menu }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: sessiontime }); 
-            } else {
-                token = jwt.sign({ _id: user.id, rol: user.rol, menu }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: sessiontime });
-            }
+            } 
+            
+            let proceso = await pool.query('SELECT * FROM proceso_electoral WHERE estado = true ORDER BY fec_eleccion DESC LIMIT 1')
+                .then(result => { return result.rows }) as Proceso[];
+            token = jwt.sign({ _id: user.id, rol: user.rol, proceso, menu }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: user.tiemposesion }); 
 
             user.iniciales = (user.nombre !== "") ? user.nombre.slice(0, 1) : '';
             user.iniciales = (user.apellido !== "") ? user.iniciales + user.apellido.slice(0, 1) : '';
 
-            return res.status(200).jsonp({ cod: "OK", message: "Ingreso Exitoso", user: user, menu, authorization: token, sessiontime });
+            return res.status(200).jsonp({ cod: "OK", message: "Ingreso Exitoso", user: user, menu, authorization: token });
         }
 
         return res.status(200).jsonp({ cod: "ERROR", message: "Email o contraseña incorrectos" });

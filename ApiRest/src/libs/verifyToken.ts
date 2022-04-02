@@ -22,7 +22,6 @@ const INICIO_PROCESO = 8;
 const FIN_PROCESO = 17;
 export const TokenValidation = async (req: Request, res: Response, next: NextFunction) => {
 
-    // console.log(req.header('Authorization'))
     const token = req.header('authorization')?.split(' ')[1];
 
     if (!token) return res.status(401).jsonp({ message: 'Acceso denegado' });
@@ -39,10 +38,13 @@ export const TokenValidation = async (req: Request, res: Response, next: NextFun
         req.userId = payload._id;
         req.userRol = payload.rol;
         req.menu = payload.menu;
+        if (payload.proceso !== undefined) {
+            req.proceso = payload.proceso;
+        }
 
         next()
     } catch (error: any) {
-        console.log(error.name, ' ', error.message);
+        // console.log(error.name, ' ', error.message);
         if (error.name === 'TokenExpiredError') return res.status(401).jsonp({ message: "El tiempo de votación para tu usuario a expirado." });
         if (error.name === 'JsonWebTokenError') return res.status(401).jsonp({ message: "Token no valido." });
         return res.status(500).jsonp({ message: "Error en Base de datos." });
