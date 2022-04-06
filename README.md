@@ -8,4 +8,4 @@ Proceso Electoral Electrónico
 # Documentación :notebook:
 - Informe Técnico
 # Video Explicativo ⏯️
-[SistemaWeb](https://www.youtube.com/watch?v=GBGlmvJWE44)
+[SistemaWeb](https://www.youtube.com/watch?v=pi6xjHIeRk0 )
