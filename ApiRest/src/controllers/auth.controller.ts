@@ -3,7 +3,7 @@ import { pool } from "../database";
 import jwt from "jsonwebtoken";
 import { User } from '../interfaces/user.iterface';
 import { Proceso, msgEmail } from '../interfaces/proceso.interface';
-import { enviarMail, sacarmenu } from "../libs/seguridad";
+import { enviarMail, sacarmenu, getParametros } from "../libs/seguridad";
 import { Usuario } from "../models/Usuario.model";
 
 /**
@@ -88,7 +88,8 @@ export const EnviarEmailCambioPassword = async (req: Request, res: Response) => 
         }
 
         let token = jwt.sign({ _id: usuario.id, rol: usuario.rol }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: 60 * 10 });
-        const url = `http://localhost:4400/recuperar?token=${token}`
+        const parametro = await getParametros('servicio');
+        const url = `${parametro}?token=${token}`
         let message: msgEmail = {
             from: '',
             to: usuario.email,

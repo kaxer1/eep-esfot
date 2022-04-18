@@ -4,5 +4,6 @@ declare namespace Express {
         userRol: number,
         menu: Menu[]
         proceso: Proceso[]
+        files:any
     }
 }

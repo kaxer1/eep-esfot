@@ -27,7 +27,8 @@ export class EditDialogComponent implements OnInit {
     this.grupoFormulario = this.fb.group({
       id: ['', [Validators.required]],
       nombre: ['', [Validators.required, Validators.maxLength(100)]],
-      vota: [false]
+      vota: [false],
+      tiemposesion: ['', [Validators.required, Validators.maxLength(100)]]
     });
     this.SetData();
   }
@@ -37,6 +38,7 @@ export class EditDialogComponent implements OnInit {
       id: this.data.id,
       nombre: this.data.nombre,
       vota: this.data.vota,
+      tiemposesion: this.data.tiemposesion,
     })
   }
 

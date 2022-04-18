@@ -1,11 +1,13 @@
+import { Sequelize } from 'sequelize'
+import { database } from './config';
 import Pool from 'pg-pool';
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    database: 'eep',
-    password: 'admin'
+    user: database.username,
+    host: database.host,
+    port: database.port,
+    database: database.database,
+    password: database.password
 });
 
 pool.query('SELECT NOW()', (err, res) => {
@@ -16,8 +18,6 @@ pool.query('SELECT NOW()', (err, res) => {
     }
 });
 
-import { Sequelize } from 'sequelize'
-import { database } from './config';
 
 const sequelize = new Sequelize(
     database.database,
@@ -26,7 +26,7 @@ const sequelize = new Sequelize(
     { 
         host: database.host,
         dialect: "postgres",
-        port: 5432
+        port: database.port
     },
 );
 

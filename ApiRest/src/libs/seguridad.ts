@@ -1,6 +1,6 @@
 import { Menu } from 'interfaces/user.iterface';
 import { pool } from '../database';
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 import { msgEmail } from 'interfaces/proceso.interface';
 
 /**
@@ -46,22 +46,33 @@ export const secuencia = async (tname: string, pk: string) => {
     }
 }
 
+const USER: string = 'eep.esfot2022@gmail.com'
+const smtpTransport = nodemailer.createTransport({
+    host: 'smtp.mailtrap.io',
+    port: 2525,
+    auth: {
+        user: 'd7fdb97d48542a',
+        pass: '5c7beb9ceb6761',
+    }
+});
+
+smtpTransport.verify().then(() => {
+    console.log("Listo para enviar email");
+})
+
 /**
  * Metodo para enviar emails desde el origen de una cuenta para la esfot.
  * @param data Estructura del email a ser enviado
  * @returns Valor booleando si envio o no el mensaje.
  */
 export const enviarMail = async function (data: msgEmail) {
-    
-    const user = 'eep.esfot2022@gmail.com'
-    const smtpTransport = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: user,
-            pass: '5f7CERc5rTcot7'
-        }
-      });
-    data.from = user;
+    data.from = USER;
     return await smtpTransport.sendMail(data);
 }
 
+
+export const getParametros = async function (nombre: string) {
+    const query = `select texto from parametros where nombre = ${nombre}`;
+    const [ item ] = await pool.query(query).then( (result) => { return result.rows});
+    return (item == undefined) ? "" : item;
+}

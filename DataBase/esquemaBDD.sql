@@ -1,3 +1,15 @@
+create table transacciones (
+        ruta varchar(100) primary key not null,
+        path varchar(255) not null
+);
+    
+create table rol (
+        id int primary key not null,
+        nombre varchar(100) not null,
+        vota boolean default false,
+        tiemposesion int null
+);
+
 create table usuario(
 	id int unique primary key,
 	username varchar(100) not null,
@@ -32,7 +44,7 @@ create table lista_electoral(
 	logo varchar(200), 
 	estado boolean default true,
 	id_proceso int not null,
-	contenido text default null
+	contenido text default null,
 	foreign key (id_proceso) references proceso_electoral(id)
 );
 
@@ -43,17 +55,6 @@ create table candidatos(
 	cargo varchar(255) not null,
 	id_lista int not null,
 	foreign key (id_lista) references lista_electoral (id)
-);
-
-create table transacciones (
-        ruta varchar(100) primary key not null,
-        path varchar(255) not null
-);
-    
-create table rol (
-        id int primary key not null,
-        nombre varchar(100) not null,
-        vota boolean default false
 );
 
 create table menu(
@@ -72,18 +73,8 @@ create table menu(
         foreign key (id_padre) references menu(id)
 );
 
-drop table menu;
-drop table rol;
-drop table transacciones;
-
-
-SELECT * FROM usuario
-SELECT * FROM menu
-select * from lista_electoral
-select * from candidatos
-
-select * from transacciones
-select * from proceso_electoral
-
-select * from rol
-alter table rol add column tiemposesion int null
+create table parametros(
+        id serial primary key,
+        nombre varchar(100) not null,
+        texto varchar(100) not null
+)

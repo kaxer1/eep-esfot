@@ -34,4 +34,8 @@ INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, elim
 
 
 INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (1, 'lambo', 'kevin', 'curay', '0503908857', '132cb17c0f58421f03ca12f6770de0258f36ac31dcc082b6af9d4dfe4224e385', 'kevin.curay@epn.edu.ec', true, 1, false, null, null, null);
-INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (2, 'pacog', 'paco', 'gomez', '0503902455', '95c9f6244daf04aed0b8ae294e0372843e643cc28ddab1e936373c68543d8cc6', 'paco.gomez@epn.edu.ec', true, 2, true, true, null, null);
+INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (2, 'pacog', 'paco', 'gomez', '0503902455', '95c9f6244daf04aed0b8ae294e0372843e643cc28ddab1e936373c68543d8cc6', 'paco.gomez@epn.edu.ec', true, 2, false, true, null, null);
+
+INSERT INTO proceso_electoral (id, descripcion, estado, semestre, fec_eleccion, hora_inicio, hora_final) VALUES (1, 'Consejo de la esfot 2022', true, '2022A', '2021-12-29', '08:00:00', '17:00:00');
+
+INSERT INTO parametros (id, nombre, texto) VALUES (1, 'servicio', 'https://app-eep.vercel.app/recuperar');

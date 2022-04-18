@@ -22,11 +22,11 @@ const INICIO_PROCESO = 8;
 const FIN_PROCESO = 17;
 export const TokenValidation = async (req: Request, res: Response, next: NextFunction) => {
 
-    const token = req.header('authorization')?.split(' ')[1];
-
-    if (!token) return res.status(401).jsonp({ message: 'Acceso denegado' });
-
     try {
+        const auth: any = req.header('authorization')
+        const token = auth.split(' ')[1];
+    
+        if (!token) return res.status(401).jsonp({ message: 'Acceso denegado' });
 
         const payload = jwt.verify(token, process.env.TOKEN_SECRET || 'tokentest') as IPayload; // extraer informacion del token.
 
