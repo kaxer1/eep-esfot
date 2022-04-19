@@ -13,7 +13,7 @@ export const RegistrarProceso = async (req: Request, res: Response) => {
         if (!proceso) return res.status(200).jsonp({ cod: "ERROR", message: "El proceso no se registro" });
         
         let bc = new Blockchain();
-        bc.crearArchivoGenesis(semestre + descripcion);
+        bc.crearArchivoGenesis(semestre + descripcion.trim());
         return res.status(200).jsonp({ cod: "OK", message: 'Se registro el proceso' });
     } catch (error) {
         return res.status(500).jsonp({ message: 'Fallo en la BDD' });
@@ -29,7 +29,7 @@ export const ActualizarProceso = async (req: Request, res: Response) => {
         
         if (!proceso) return res.status(200).jsonp({ cod: "ERROR", message: "El proceso no se actializo" });
         let bc = new Blockchain();
-        bc.crearArchivoGenesis(semestre + descripcion);
+        bc.crearArchivoGenesis(semestre + descripcion.trim());
         return res.status(200).jsonp({ cod: "OK", message: 'Se actualizo el proceso' });
     } catch (error) {
         return res.status(500).jsonp({ message: 'Fallo en la BDD' });

@@ -1,25 +1,41 @@
+import { log } from "console";
 import fs from "fs";
+import path from 'path'
 
 export const crearArchivoJsonGenesis = (filename: string, contenido: string) => {
-    fs.writeFile(filename + '.json', contenido, function (err) {
-        if (err) throw err;
-        console.log('Archivo guardado!');
-    });
+    try {
+        const pathtotal = path.resolve(__dirname, filename+ '.json')
+        fs.writeFile(pathtotal, contenido, function (err) {
+            if (err) throw err;
+            console.log('Archivo guardado!');
+        });
+    } catch (error) {
+        log(error);
+        throw new Error("Archivo no creado.");
+    }
 }
 
 export const actualizarArchivoJson = (filename: string, contenido: string) => {
-    fs.writeFile(filename + '.json', contenido, function (err) {
-        if (err) throw err;
-        console.log('Archivo guardado!');
-    });
+    try {
+        const pathtotal = path.resolve(__dirname, filename+ '.json');
+        fs.writeFile(pathtotal, contenido, function (err) {
+            if (err) throw err;
+            console.log('Archivo guardado!');
+        });
+    } catch (error) {
+        log(error);
+        throw new Error("Archivo no actualizado.");
+    }
 }
 
 export const leerArchivoPorProceso = async(filename: string) => {
     try {
-        const data = await fs.readFileSync(filename + '.json','utf8');
+        const pathtotal = path.resolve(__dirname, filename+ '.json');
+        const data = await fs.readFileSync(pathtotal,'utf8');
         const lobj  = JSON.parse(data)
         return lobj
     } catch (error) {
+        log(error);
         throw new Error("Archivo no existe.");
     }
 }

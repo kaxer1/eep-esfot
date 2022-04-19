@@ -2,6 +2,7 @@ import { Menu } from 'interfaces/user.iterface';
 import { pool } from '../database';
 import nodemailer from 'nodemailer';
 import { msgEmail } from 'interfaces/proceso.interface';
+import { log } from 'console';
 
 /**
  * Encuenta menu por rol
@@ -57,7 +58,7 @@ const smtpTransport = nodemailer.createTransport({
 });
 
 smtpTransport.verify().then(() => {
-    console.log("Listo para enviar email");
+    log("Listo para enviar email");
 })
 
 /**

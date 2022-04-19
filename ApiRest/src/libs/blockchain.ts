@@ -1,3 +1,4 @@
+import { log } from "console";
 import { actualizarArchivoJson, crearArchivoJsonGenesis, leerArchivoPorProceso } from "./files";
 
 const SHA256 = require('crypto-js/sha256');
@@ -76,11 +77,11 @@ export class Blockchain {
         const ultimoBloque = this.getUltimoBloque();
 
         if (ultimoBloque.index + 1 !== nuevoBloque.index) {
-            console.log('Indice no valido');
+            log('Indice no valido');
         } else if (nuevoBloque.hashAnterior !== ultimoBloque.hash) {
-            console.log('Hash anterior no corresponde');
+            log('Hash anterior no corresponde');
         } else if (nuevoBloque.hash !== calcularHash(nuevoBloque)) {
-            console.log('No minaste el bloque apropiadamente');            
+            log('No minaste el bloque apropiadamente');            
         } else {
             this.chain.push(nuevoBloque);
             actualizarArchivoJson(filename, JSON.stringify(this.chain))

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import {pool} from "../database";
 import { QueryResult } from 'pg';
+import { log } from 'console';
 
 export const deleteMetodoGeneral = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -15,7 +16,7 @@ export const deleteMetodoGeneral = async (req: Request, res: Response): Promise<
         const response: QueryResult = await pool.query(query);
         return res.status(200).jsonp({ cod: "OK", message: "Registro eliminado con exito", delete: response.rows})
     } catch (error) {
-        console.log(error);
+        log(error);
         return res.status(500).jsonp({ message: 'Fallo en la BDD' });
     }
 };

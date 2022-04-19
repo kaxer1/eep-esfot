@@ -24,13 +24,13 @@ INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, elim
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (6, 2, 'home-estudiante', 5, 'PROCESO ELECTORAL', null, true, true, true, true);
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (7, 1, 'votos-live', 1, 'VER VOTOS', null, true, true, true, true);
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (10, 1, null, null, 'SEGURIDAD', 'dashboard', false, false, false, true);
-INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (2, 1, 'proceso-electoral', 1, 'PROCESO ELECTORAL', null, false, true, true, true);
-INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (8, 1, 'listas/:id', 1, 'LISTAS ID', null, false, false, false, false);
-INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (9, 1, 'candidatos/:id', 1, 'CANDIDATOS ID', null, false, false, false, false);
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (11, 1, 'estudiantes', 1, 'ESTUDIANTES', null, true, true, true, true);
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (12, 1, 'opcionesmenu', 10, 'MENU', null, true, true, true, true);
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (13, 1, 'roles', 10, 'ROLES', null, true, true, true, true);
 INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (14, 1, 'transacciones', 10, 'TRANSACIONES', null, true, true, true, true);
+INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (2, 1, 'proceso-electoral', 1, 'PROCESO ELECTORAL', null, true, true, true, true);
+INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (8, 1, 'listas/:id', 1, 'LISTAS ID', null, true, false, false, false);
+INSERT INTO menu (id, id_rol, cruta, id_padre, nombre, icon, crear, editar, eliminar, mostrarmenu) VALUES (9, 1, 'candidatos/:id', 1, 'CANDIDATOS ID', null, true, false, false, false);
 
 
 INSERT INTO usuario (id, username, nombre, apellido, cedula, password, email, activo, rol, sufrago, estudiante, createdat, updatedat) VALUES (1, 'lambo', 'kevin', 'curay', '0503908857', '132cb17c0f58421f03ca12f6770de0258f36ac31dcc082b6af9d4dfe4224e385', 'kevin.curay@epn.edu.ec', true, 1, false, null, null, null);

@@ -5,6 +5,7 @@ import { User } from '../interfaces/user.iterface';
 import { Proceso, msgEmail } from '../interfaces/proceso.interface';
 import { enviarMail, sacarmenu, getParametros } from "../libs/seguridad";
 import { Usuario } from "../models/Usuario.model";
+import { log } from "console";
 
 /**
  * Login del sistema
@@ -98,10 +99,9 @@ export const EnviarEmailCambioPassword = async (req: Request, res: Response) => 
         }
 
         const enviado = await enviarMail(message).then((o) => {
-            console.log(o)
             return true
         }).catch((e) => { 
-            console.error(e)
+            log(e)
             return false
         });
         
