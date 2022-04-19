@@ -1,0 +1,27 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgres
+    image: esfotepn.azurecr.io/postgresql:v1
+    build: ./DataBase/
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - '5432:5432'
+    networks:
+      - eep-network
+  apirest:
+    container_name: apirest
+    image: esfotepn.azurecr.io/api-test:v1
+    build: ./ApiRest/
+    environment:
+      - PASSWORD_DB=mysecretpassword
+      - HOST_DB=20.124.138.186
+    ports:
+      - '3001:3001'
+    networks:
+      - eep-network
+networks:
+  eep-network:
