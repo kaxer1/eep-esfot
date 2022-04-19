@@ -16,7 +16,7 @@ export const registrarVoto = async (req: Request, res: Response) => {
 
         BLOCK_CHAIN = new Blockchain();
         const [proceso]: Proceso[] = req.proceso;
-        const filename = proceso.semestre + proceso.descripcion;
+        const filename = proceso.semestre + proceso.descripcion.trim();
         await BLOCK_CHAIN.getDataArchivo(filename)
         BLOCK_CHAIN.crearNuevoBloque(filename, req.body);
 
@@ -31,7 +31,7 @@ export const verVotos = async(req: Request, res: Response) => {
     try {
         BLOCK_CHAIN = new Blockchain(); 
         const [proceso]: Proceso[] = req.proceso;
-        await BLOCK_CHAIN.getDataArchivo(proceso.semestre + proceso.descripcion)
+        await BLOCK_CHAIN.getDataArchivo(proceso.semestre + proceso.descripcion.trim())
         return res.status(200).jsonp(BLOCK_CHAIN.imprimir());
     } catch (error) {
         return res.status(500).jsonp({ message: "Falla de la respuesta del archivo" });

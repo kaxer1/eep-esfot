@@ -1,10 +1,11 @@
 import { log } from "console";
 import fs from "fs";
 import path from 'path'
+const DIR_PATH = "../../uploads/"
 
 export const crearArchivoJsonGenesis = (filename: string, contenido: string) => {
     try {
-        const pathtotal = path.resolve(__dirname, filename+ '.json')
+        const pathtotal = path.resolve(__dirname, DIR_PATH + filename+ '.json')
         fs.writeFile(pathtotal, contenido, function (err) {
             if (err) throw err;
             console.log('Archivo guardado!');
@@ -17,7 +18,7 @@ export const crearArchivoJsonGenesis = (filename: string, contenido: string) => 
 
 export const actualizarArchivoJson = (filename: string, contenido: string) => {
     try {
-        const pathtotal = path.resolve(__dirname, filename+ '.json');
+        const pathtotal = path.resolve(__dirname, DIR_PATH + filename+ '.json');
         fs.writeFile(pathtotal, contenido, function (err) {
             if (err) throw err;
             console.log('Archivo guardado!');
@@ -30,7 +31,7 @@ export const actualizarArchivoJson = (filename: string, contenido: string) => {
 
 export const leerArchivoPorProceso = async(filename: string) => {
     try {
-        const pathtotal = path.resolve(__dirname, filename+ '.json');
+        const pathtotal = path.resolve(__dirname, DIR_PATH + filename+ '.json');
         const data = await fs.readFileSync(pathtotal,'utf8');
         const lobj  = JSON.parse(data)
         return lobj

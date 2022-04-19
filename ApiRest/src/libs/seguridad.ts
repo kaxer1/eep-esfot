@@ -73,7 +73,12 @@ export const enviarMail = async function (data: msgEmail) {
 
 
 export const getParametros = async function (nombre: string) {
-    const query = `select texto from parametros where nombre = ${nombre}`;
-    const [ item ] = await pool.query(query).then( (result) => { return result.rows});
-    return (item == undefined) ? "" : item;
+    try {
+        const query = `select texto from parametros where nombre = $1`;
+        const [ item ] = await pool.query(query, [nombre]).then( (result) => { return result.rows});
+        return (item == undefined) ? "" : item.texto;
+    } catch (error) {
+        log(error);
+        return ''
+    }
 }

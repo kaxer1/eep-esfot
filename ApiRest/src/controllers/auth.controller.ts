@@ -89,7 +89,7 @@ export const EnviarEmailCambioPassword = async (req: Request, res: Response) => 
         }
 
         let token = jwt.sign({ _id: usuario.id, rol: usuario.rol }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: 60 * 10 });
-        const parametro = await getParametros('servicio');
+        const parametro = await getParametros("servicio");
         const url = `${parametro}?token=${token}`
         let message: msgEmail = {
             from: '',
