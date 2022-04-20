@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import {pool} from "../database";
-import path from 'path';
 import fs from 'fs';
 
 export const subirImageLista = async (req: Request, res: Response) => {
@@ -39,11 +38,6 @@ export const getListasElectoral = async (req: Request, res: Response) => {
 
 }
 
-export const getAudio = async (req: Request, res: Response) => {
-
-    res.sendFile(path.resolve('uploads') + "//track1.mp3")
-}
-
 export const createListas = async (req: Request, res: Response) => {
     const { nom_lista, descripcion, estado, id_proceso } = req.body;
     try {
@@ -76,8 +70,3 @@ export const actualizarListas = async (req: Request, res: Response) => {
     }
 
 }
-
-// export const getImageLista = async(req: Request, res: Response) => {
-//     const filename = req.params.logo;
-//     res.sendFile(path.resolve('uploads') + '//' + filename)
-// }

@@ -95,7 +95,7 @@ export const EnviarEmailCambioPassword = async (req: Request, res: Response) => 
             from: '',
             to: usuario.email,
             subject: 'Recuperación de contraseña de usuario',
-            html: `<p>Hola recupera tu contraseña en el siguiente link: ${url}</p>`,
+            html: `<p>Saludos para recuperar tu contraseña da click en el siguiente link: <a href="${url}"> click para recuperar contraseña </a></p>`,
         }
 
         const enviado = await enviarMail(message).then((o) => {
@@ -134,10 +134,8 @@ export const actualizarPassword = async (req: Request, res: Response) => {
         usuario.password = newpassword;
         usuario.save()
 
-        return res.status(200).jsonp({ cod: "OK", message: "" });
+        return res.status(200).jsonp({ cod: "OK", message: "Contraseña actualizada" });
     } catch (error) {
         return res.status(500).jsonp({ message: "Error en el proceso" });
     }
 }
-
-// Error: connect ETIMEDOUT 74.125.26.108:465 at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1161:16) at TCPConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)

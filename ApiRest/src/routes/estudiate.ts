@@ -1,9 +1,10 @@
-import { getListasEstudiante, postRegistroEstudiante } from '../controllers/estudiante.controller';
+import { getListasEstudiante, updateEstudiante, createEstudiante } from '../controllers/estudiante.controller';
 import { Router } from 'express';
 import { TokenValidation } from '../libs/verifyToken';
 const router: Router = Router();
 
 router.get('/lista', TokenValidation, getListasEstudiante);
-router.post('/registra', TokenValidation, postRegistroEstudiante);
+router.post('/registrar', TokenValidation, createEstudiante);
+router.put('/update', TokenValidation, updateEstudiante);
 
 export default router;
