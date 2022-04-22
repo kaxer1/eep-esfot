@@ -71,7 +71,11 @@ export const enviarMail = async function (data: msgEmail) {
     return await smtpTransport.sendMail(data);
 }
 
-
+/**
+ * Obtiene dato segun el nombre del parametro.
+ * @param nombre Nombre del parametro
+ * @returns valor del parametro
+ */
 export const getParametros = async function (nombre: string) {
     try {
         const query = `select texto from parametros where nombre = $1`;

@@ -3,6 +3,11 @@ import fs from "fs";
 import path from 'path'
 const DIR_PATH = "../../uploads/"
 
+/**
+ * Crear el archivo genesis para guardar la cadena de votaciones de un determinado periodo.
+ * @param filename Nombre del archivo.
+ * @param contenido contenido del archivo.
+ */
 export const crearArchivoJsonGenesis = (filename: string, contenido: string) => {
     try {
         const pathtotal = path.resolve(__dirname, DIR_PATH + filename+ '.json')
@@ -16,6 +21,11 @@ export const crearArchivoJsonGenesis = (filename: string, contenido: string) => 
     }
 }
 
+/**
+ * Actualiza el contenido del archivo que guarda los votos.
+ * @param filename Nombre del archivo.
+ * @param contenido contenido del archivo.
+ */
 export const actualizarArchivoJson = (filename: string, contenido: string) => {
     try {
         const pathtotal = path.resolve(__dirname, DIR_PATH + filename+ '.json');
@@ -29,6 +39,11 @@ export const actualizarArchivoJson = (filename: string, contenido: string) => {
     }
 }
 
+/**
+ * Lee el contenido del archivo del proceso electoral.
+ * @param filename Nombre del archivo
+ * @returns Contenido del archivo json.
+ */
 export const leerArchivoPorProceso = async(filename: string) => {
     try {
         const pathtotal = path.resolve(__dirname, DIR_PATH + filename+ '.json');

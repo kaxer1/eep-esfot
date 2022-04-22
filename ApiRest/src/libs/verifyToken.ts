@@ -44,7 +44,6 @@ export const TokenValidation = async (req: Request, res: Response, next: NextFun
 
         next()
     } catch (error: any) {
-        // console.log(error.name, ' ', error.message);
         if (error.name === 'TokenExpiredError') return res.status(401).jsonp({ message: "El tiempo de votación para tu usuario a expirado." });
         if (error.name === 'JsonWebTokenError') return res.status(401).jsonp({ message: "Token no valido." });
         return res.status(500).jsonp({ message: "Error en Base de datos." });
