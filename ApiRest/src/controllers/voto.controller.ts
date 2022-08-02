@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Blockchain } from "../libs/blockchain";
 import {pool} from '../database'
 import { Proceso } from '../interfaces/proceso.interface';
+import { log } from 'console';
 
 let BLOCK_CHAIN: Blockchain;
 // voto blockchain
@@ -29,11 +30,15 @@ export const registrarVoto = async (req: Request, res: Response) => {
 export const verVotos = async(req: Request, res: Response) => {
 
     try {
-        BLOCK_CHAIN = new Blockchain(); 
+        if (req.proceso == undefined || req.proceso.length == 0) {
+            return res.status(200).jsonp([]);
+        }
         const [proceso]: Proceso[] = req.proceso;
+        BLOCK_CHAIN = new Blockchain(); 
         await BLOCK_CHAIN.getDataArchivo(proceso.semestre + proceso.descripcion.trim())
         return res.status(200).jsonp(BLOCK_CHAIN.imprimir());
-    } catch (error) {
-        return res.status(500).jsonp({ message: "Falla de la respuesta del archivo" });
+    } catch (error: any) {
+        log(error);
+        return res.status(200).jsonp({ cod: "ERROR", message: error.message });
     }
 }

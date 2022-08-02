@@ -50,8 +50,6 @@ export const ObtenerProcesosElectorales = async (req: Request, res: Response) =>
             })
         });
 
-    if (datosConsulta.length === 0) return res.status(200).jsonp({ cod: "ERROR", message: 'No tienen registros de procesos' });
-
     return res.status(200).jsonp({ cod: "OK", message: "", procesos: datosConsulta });
 }
 

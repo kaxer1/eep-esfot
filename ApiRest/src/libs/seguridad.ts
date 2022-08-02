@@ -10,7 +10,7 @@ import { log } from 'console';
  * @returns retorna un arreglo con el menu.
  */
 export const sacarmenu = async (rol: number) => {
-    const q = `SELECT * FROM menu WHERE id_rol = ${rol} `
+    const q = `SELECT * FROM menu WHERE id_rol = ${rol} order by id_padre`;
     try {
         const menu = await pool.query(q).then(result => { return result.rows });
         let menunode: any = [];

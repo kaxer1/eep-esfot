@@ -22,9 +22,7 @@ export const signin = async (req: Request, res: Response) => {
         if (password === undefined || password === null || password === '') return res.status(200).jsonp({ cod: "ERROR", message: "Password indefinido" });
 
         // busca usuario activo.
-        const subqueryvota = `(select r.vota from rol r where r.id = u.rol) as vota`
-        const subquerytiemposesion = `(select r.tiemposesion from rol r where r.id = u.rol) as tiemposesion`
-        let user = await pool.query(`SELECT (u.nombre || \' \' || u.apellido) as fullname, *, ${subqueryvota}, ${subquerytiemposesion}  FROM usuario u WHERE u.email = $1 AND u.password = $2 AND u.activo = true`, [email, password])
+        let user = await pool.query(`SELECT (u.nombre || \' \' || u.apellido) as fullname, u.*, r.vota, r.tiemposesion, r.nombre as nrol  FROM usuario u inner join rol r on r.id = u.rol WHERE u.email = $1 AND u.password = $2 AND u.activo = true`, [email, password])
             .then(result => {
                 return result.rows[0]
             }) as User;
@@ -50,6 +48,7 @@ export const signin = async (req: Request, res: Response) => {
 
         return res.status(200).jsonp({ cod: "ERROR", message: "Email o contraseña incorrectos" });
     } catch (error) {
+        log(error)
         return res.status(500).jsonp({ message: "Error al ingresar" });
     }
 

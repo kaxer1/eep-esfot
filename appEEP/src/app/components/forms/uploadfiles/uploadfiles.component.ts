@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { DataCentralService } from '../../../libs/data-central.service';
 
@@ -14,9 +14,11 @@ export class UploadfilesComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput: ElementRef;
 
+  @Output() onUploadSuccess: EventEmitter<any> = new EventEmitter();
+
   public FileForm: FormGroup
   
-  public selectedFiles: File;
+  public selectedFiles: File = null;
 
   constructor(private formBuilder: FormBuilder, private dcentral: DataCentralService) { }
 
@@ -33,17 +35,23 @@ export class UploadfilesComponent implements OnInit {
 
   EnviarArchivo() {
 
+    if (this.selectedFiles == null) {
+      return this.dcentral.mostrarmsgerror('ELIGA UN ARCHIVO PARA ENVIAR.')
+    }
     const formData = new FormData();
     formData.append('file', this.selectedFiles);
 
     this.dcentral.SubirArchivo(formData, this.metodo).subscribe(resp => {
       this.Limpiar();
+      this.onUploadSuccess.emit();
     })
     
   }
 
   Limpiar() {
     this.fileInput.nativeElement.value = '';
+    this.FileForm.reset();
+    this.selectedFiles = null;
   }
 
 }

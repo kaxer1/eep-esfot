@@ -15,8 +15,8 @@ export const deleteMetodoGeneral = async (req: Request, res: Response): Promise<
         }
         const response: QueryResult = await pool.query(query);
         return res.status(200).jsonp({ cod: "OK", message: "Registro eliminado con exito", delete: response.rows})
-    } catch (error) {
+    } catch (error: any) {
         log(error);
-        return res.status(500).jsonp({ message: 'Fallo en la BDD' });
+        return res.status(200).jsonp({ cod: "ERROR", message: error.detail});
     }
 };

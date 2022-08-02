@@ -13,7 +13,8 @@ export interface User {
     estudiante: boolean | null,
     password: string,
     vota?: boolean
-    tiemposesion?: number
+    tiemposesion?: number,
+    nrol?: string
 }
 
 export interface UsuarioAtributos {
