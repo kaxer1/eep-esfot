@@ -3,6 +3,7 @@ import { Menu } from 'interfaces/user.iterface';
 import jwt from 'jsonwebtoken';
 import {pool} from '../database'
 import { Proceso } from '../interfaces/proceso.interface';
+import { User } from '../interfaces/user.iterface';
 
 interface IPayload {
     _id: number,
@@ -10,7 +11,8 @@ interface IPayload {
     menu: Menu[],
     iat: number,
     exp: number,
-    proceso: Proceso[]
+    proceso: Proceso[],
+    user: User
 }
 
 interface current {
@@ -18,8 +20,6 @@ interface current {
     current_time: string
 }
 
-const INICIO_PROCESO = 8;
-const FIN_PROCESO = 17;
 export const TokenValidation = async (req: Request, res: Response, next: NextFunction) => {
 
     try {

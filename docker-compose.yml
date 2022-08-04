@@ -2,7 +2,7 @@ version: '3'
 services:
   postgres:
     container_name: postgres
-    image: esfotepn.azurecr.io/postgresql:v1
+    image: acresfot.azurecr.io/postgresql:v1
     build: ./DataBase/
     restart: always
     environment:
@@ -14,7 +14,7 @@ services:
       - eep-network
   apirest:
     container_name: apirest
-    image: esfotepn.azurecr.io/api-test:v1
+    image: acresfot.azurecr.io/api-test:v1
     build: ./ApiRest/
     environment:
       - PASSWORD_DB=mysecretpassword

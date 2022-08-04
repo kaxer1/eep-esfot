@@ -28,20 +28,21 @@ export const signin = async (req: Request, res: Response) => {
             }) as User;
 
         if (user) {
-            user.password = '';
-            let menu = await sacarmenu(user.rol);
-
-            let token;
             if (user.vota === true) {
                 if (user.sufrago === true) return res.status(200).jsonp({ cod: "ERROR", message: "Usuario ya sufrago." });
             } 
             
             let proceso = await pool.query('SELECT * FROM proceso_electoral WHERE estado = true ORDER BY fec_eleccion DESC LIMIT 1')
                 .then(result => { return result.rows }) as Proceso[];
-            token = jwt.sign({ _id: user.id, rol: user.rol, proceso, menu }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: user.tiemposesion }); 
+            // aqui una funcion para comparar la hora del sistema.
+
+            user.password = '';
+            let menu = await sacarmenu(user.rol);
 
             user.iniciales = (user.nombre !== "") ? user.nombre.slice(0, 1) : '';
             user.iniciales = (user.apellido !== "") ? user.iniciales + user.apellido.slice(0, 1) : '';
+            
+            let token = jwt.sign({ _id: user.id, rol: user.rol, proceso, menu, user }, process.env.TOKEN_SECRET || 'tokentest', { expiresIn: user.tiemposesion }); 
 
             return res.status(200).jsonp({ cod: "OK", message: "Ingreso Exitoso", user: user, menu, authorization: token });
         }

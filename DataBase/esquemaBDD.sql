@@ -33,8 +33,8 @@ create table proceso_electoral(
 	semestre varchar(255) not null,
 	descripcion varchar(255) not null,
 	hora_inicio Time without time zone not null,
-	hora_final Time without time zone not null
-	estado boolean default true,
+	hora_final Time without time zone not null,
+	estado boolean default true
 );
 
 create table lista_electoral(
